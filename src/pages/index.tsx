@@ -6,7 +6,9 @@ import DashboardLayout from '../components/dashboard/DashboardLayout'
 export default function Home(props: NextPage) {
 	return (
 		<DashboardLayout>
-			This is home
+			<div>
+				This is home
+			</div>
 		</DashboardLayout>
 	)
 }

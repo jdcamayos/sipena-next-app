@@ -24,7 +24,7 @@ export class AuthService {
 		return data
 	}
 	async forgotPassword(email: string) {
-		const { data } = await service.get(`/auth/forgot-password/${email}`)
+		const { data } = await service.get<{ message: string }>(`/auth/forgot-password/${email}`)
 		return data
 	}
 	async recoveryPassword(recoveryPasswordDto: RecoveryPasswordDto, token: string) {
@@ -32,6 +32,6 @@ export class AuthService {
 			`/auth/recovery-password/${token}`,
 			recoveryPasswordDto
 		)
-		return { data }
+		return data
 	}
 }

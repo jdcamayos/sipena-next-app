@@ -11,6 +11,7 @@ import ListItemText from '@mui/material/ListItemText'
 // Icons
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import ListAltIcon from '@mui/icons-material/ListAlt'
+import { useRouter } from 'next/router'
 
 interface Props {
 	openSideBar: boolean
@@ -19,6 +20,11 @@ interface Props {
 
 export default function Sidebar(props: Props) {
 	const { openSideBar, setOpenSideBar } = props
+	const router = useRouter()
+
+	const handleLink = (to: string) => {
+		router.push(to)
+	}
 
 	const list = () => (
 		<Box
@@ -29,7 +35,7 @@ export default function Sidebar(props: Props) {
 		>
 			<List>
 				<ListItem disablePadding>
-					<ListItemButton component={LinkRouter} href='/order/new'>
+					<ListItemButton onClick={() => handleLink('/orders/new')}>
 						<ListItemIcon>
 							<InboxIcon />
 						</ListItemIcon>
@@ -37,7 +43,7 @@ export default function Sidebar(props: Props) {
 					</ListItemButton>
 				</ListItem>
 				<ListItem disablePadding>
-					<ListItemButton component={LinkRouter} href='/'>
+					<ListItemButton onClick={() => handleLink('/')}>
 						<ListItemIcon>
 							<ListAltIcon />
 						</ListItemIcon>
@@ -49,11 +55,7 @@ export default function Sidebar(props: Props) {
 	)
 
 	return (
-		<Drawer
-      anchor='left'
-      open={openSideBar}
-      onClose={() => setOpenSideBar(false)}
-    >
+		<Drawer anchor='left' open={openSideBar} onClose={() => setOpenSideBar(false)}>
 			{list()}
 		</Drawer>
 	)

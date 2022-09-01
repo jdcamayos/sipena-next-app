@@ -13,3 +13,10 @@ export interface ErrorResponseBase {
 	message: string | string[]
 	error: string
 }
+
+export interface Meta {
+	page: number
+	pages: number
+	itemsPerPage: number
+	totalItems: number
+}

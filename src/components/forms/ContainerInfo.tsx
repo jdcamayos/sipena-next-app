@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import * as React from 'react'
-import { Container, CreateContainer, ListItemCreateContainer } from '../../types'
+import { Container, CreateContainerDto, CreateContainerItem } from '../../types'
 import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
@@ -10,10 +10,11 @@ import Grid from '@mui/material/Grid'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import TextField from '@mui/material/TextField'
-import useCreateOrder from '../../hooks/useCreateOrder'
+// Hooks
+import useNewOrder from '../../hooks/useNewOrder'
 
-type Props = {
-	initialValues?: ListItemCreateContainer | Container
+interface Props {
+	initialValues?: CreateContainerItem | Container
 	isForm?: boolean
 	isUpdate?: boolean
 	handleClose?: () => void
@@ -21,7 +22,7 @@ type Props = {
 
 export default function ContainerInfo(props: Props) {
 	const { initialValues, isUpdate, handleClose } = props
-	const { addContainer, editContainer } = useCreateOrder()
+	const { addContainer, editContainer } = useNewOrder()
 
 	const formik = useFormik({
 		initialValues: initialValues
@@ -43,7 +44,7 @@ export default function ContainerInfo(props: Props) {
 					stretchWrap: false,
 					additionalInfo: '',
 			  },
-		onSubmit: async (values: CreateContainer) => {
+		onSubmit: async (values: CreateContainerDto) => {
 			if (isUpdate && initialValues) {
 				if(typeof initialValues.id === 'number') editContainer({ id: initialValues.id, ...values })
 			} else {

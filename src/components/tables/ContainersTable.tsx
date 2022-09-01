@@ -12,19 +12,19 @@ import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
 // Icons
 import DeleteIcon from '@mui/icons-material/Delete'
-// Others
-import { Container, ListItemCreateContainer } from '../../types'
+// Components
 import ContainerForm from '../forms/ContainerForm'
-import useCreateOrder from '../../hooks/useCreateOrder'
+// Types
+import { Container, CreateContainerItem } from '../../types'
 
 type Props = {
 	isForm: boolean
-	containers:  ListItemCreateContainer[] | Container[]
+	containers:  CreateContainerItem[] | Container[],
+	removeContainer: (id: number) => void
 }
 
 export default function ContainersTable(props: Props) {
-	const { removeContainer } = useCreateOrder()
-	const { containers, isForm } = props
+	const { containers, isForm, removeContainer } = props
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
 			<Box sx={{ width: "100%" }}>

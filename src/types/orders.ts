@@ -1,12 +1,12 @@
 import { Attachment } from './attachments'
-import { Base } from './base'
-import { Container, CreateContainerDto } from './container'
+import { Base, Meta } from './base'
+import { Container, CreateContainerDto, CreateContainerItem } from './container'
 
-export interface OrderBase {
-	date: Date
-	customerId: string
-	containers: CreateContainerDto[]
-}
+// export interface OrderBase {
+// 	date: Date
+// 	customerId: string
+// 	containers: CreateContainerDto[]
+// }
 
 export interface Order extends Base {
 	date: Date
@@ -29,11 +29,14 @@ export interface OrderItem extends Order {
 }
 
 // Dto
-export interface CreateOrderDto extends OrderBase {}
+export interface CreateOrderDto extends Omit<Order, 'id' | 'createdAt' | 'updatedAt' | 'status' > {
+	containers: CreateContainerItem[]
+}
 
 // Responses
 export interface FindAllOrderResponse {
 	data: OrderItem[]
+	meta: Meta
 }
 
 export interface FindOneOrderResponse extends Order {

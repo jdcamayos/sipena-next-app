@@ -21,4 +21,9 @@ export interface Container extends Base {
 }
 
 // Dto
-export interface CreateContainerDto extends ContainerBase {}
+export interface CreateContainerDto extends Omit<ContainerBase, 'id' | 'createdAt' | 'updatedAt'> {}
+
+export interface CreateContainerItem extends CreateContainerDto {
+	id: number
+}
+export interface UpdateContainerDto extends CreateContainerItem {}

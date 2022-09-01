@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { createTheme, ThemeProvider as MUIThemeProvider, responsiveFontSizes } from '@mui/material'
 
-const ThemeContext = React.createContext({ toggleThemeMode: () => {} })
+export const ThemeContext = React.createContext({ toggleThemeMode: () => {} })
 
 interface Props {
   children: React.ReactNode
@@ -36,11 +36,11 @@ export default function ThemeProvider(props: Props) {
 					},
 					typography: {
 						// fontFamily: ''
-						htmlFontSize: 20,
+						htmlFontSize: 18,
 					},
 				}),
 				{
-					factor: 4,
+					factor: 2,
 				}
 			),
 		[mode]

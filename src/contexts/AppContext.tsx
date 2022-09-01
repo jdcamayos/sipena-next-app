@@ -2,10 +2,10 @@ import * as React from 'react'
 import { ActionType } from '../app/actions'
 import { initialState } from '../app/initialState'
 import { reducer } from '../app/reducer'
-import { Auth } from '../types'
+import { State } from '../types'
 
 interface DefaultValue {
-	state: Auth
+	state: State
 	dispatch: React.Dispatch<ActionType>
 }
 

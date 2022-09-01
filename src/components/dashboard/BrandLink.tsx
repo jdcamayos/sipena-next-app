@@ -32,6 +32,9 @@ export default function BrandLink({ isMobile = false }: Props) {
 					position: 'relative',
 					width: 100,
 					height: 50,
+					'&:hover': {
+						cursor: 'pointer'
+					}
 				}}
 			>
 				<Image

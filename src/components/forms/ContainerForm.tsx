@@ -8,13 +8,14 @@ import IconButton from '@mui/material/IconButton'
 // Icons
 import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
-// Others
+// Components
 import ContainerInfo from './ContainerInfo'
-import { Container, ListItemCreateContainer } from '../../types'
+// Types
+import { Container, CreateContainerItem } from '../../types'
 
 type Props = {
 	isUpdate?: boolean
-	initialValues?: ListItemCreateContainer | Container
+	initialValues?: CreateContainerItem | Container
 }
 
 export default function ContainerForm(props: Props) {

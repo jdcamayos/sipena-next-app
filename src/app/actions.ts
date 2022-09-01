@@ -1,3 +1,5 @@
+import { CreateContainerDto, CreateOrderDto, UpdateContainerDto } from "../types"
+
 export interface ActionType {
 	type: string
 	payload: any
@@ -5,7 +7,7 @@ export interface ActionType {
 
 export const actions = {
 	// Auth
-	registerRequest: 'REGISTER_REQUEST',
+	// registerRequest: 'REGISTER_REQUEST',
 	loginRequest: 'LOGIN_REQUEST',
 	logoutRequest: 'LOGOUT_REQUEST',
 	// User & Customer
@@ -15,7 +17,10 @@ export const actions = {
 	getOrdersRequest: 'GET_ORDERS_REQUEST',
 	// CreateOrder Form
 	createOrder: 'CREATE_ORDER',
+	setDate: 'SET_DATE',
 	addContainer: 'ADD_CONTAINER',
+	editContainer: 'EDIT_CONTAINER',
+	removeContainer: 'REMOVE_CONTAINER',
 	createOrderRequest: 'CREATE_ORDER_REQUEST',
 	// Order
 	addAttachmentRequest: 'ADD_ATTACHMENT_REQUEST',
@@ -23,10 +28,10 @@ export const actions = {
 	addWorkerRequest: 'ADD_WORKER_REQUEST',
 }
 
-export const registerRequest = (payload: any) => ({
-	type: actions.registerRequest,
-	payload,
-})
+// export const registerRequest = (payload: any) => ({
+// 	type: actions.registerRequest,
+// 	payload,
+// })
 export const loginRequest = (payload: any) => ({
 	type: actions.loginRequest,
 	payload,
@@ -47,13 +52,25 @@ export const getOrdersRequest = (payload: any) => ({
 	type: actions.getOrdersRequest,
 	payload,
 })
-export const createOrder = (payload: any) => ({
+export const createOrder = (payload: CreateOrderDto) => ({
 	type: actions.createOrder,
 	payload,
 })
-export const addContainer = (payload: any) => ({
+export const setDate = (payload: string | Date) => ({
+	type: actions.setDate,
+	payload
+})
+export const addContainer = (payload: CreateContainerDto) => ({
 	type: actions.addContainer,
 	payload,
+})
+export const editContainer = (payload: UpdateContainerDto) => ({
+	type: actions.editContainer,
+	payload
+})
+export const removeContainer = (payload: number) => ({
+	type: actions.removeContainer,
+	payload
 })
 export const createOrderRequest = (payload: any) => ({
 	type: actions.createOrderRequest,

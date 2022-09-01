@@ -12,6 +12,8 @@ import AuthButton from './AuthButton'
 import PasswordInput from '../misc/PasswordInput'
 // Hooks
 import useAuth from '../../hooks/useAuth'
+// Schemas
+import { loginSchema } from '../../schemas'
 
 interface Props {}
 
@@ -23,9 +25,10 @@ export default function LoginForm(props: Props) {
 			password: '',
 		},
 		onSubmit: values => {
-			console.log(values)
+			// console.log(values)
+			login(values)
 		},
-		// validationSchema: signInSchema,
+		validationSchema: loginSchema,
 	})
 
 	return (

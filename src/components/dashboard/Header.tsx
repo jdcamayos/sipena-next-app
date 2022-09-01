@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import * as React from 'react'
-import RouterLink from 'next/link'
 // MUI Styles
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
@@ -87,16 +86,14 @@ export default function Header() {
 						{state.auth.isAuth && (
 							<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 									<Button
-										component={RouterLink}
-										href="/"
+										onClick={() => handleLinkUserMenu('/')}
 										sx={{ my: 2, color: 'white', display: 'block' }}
 									>
 										Home
 									</Button>
 									{state.user?.role === 'customer' && (
 										<Button
-											component={RouterLink}
-											href="/order/new"
+											onClick={() => handleLinkUserMenu('/orders/new')}
 											sx={{ my: 2, color: 'white', display: 'block' }}
 
 										>
@@ -110,7 +107,6 @@ export default function Header() {
 							<Box sx={{ flexGrow: 0, display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
 								<Paper
 									sx={{
-										// border: '1px solid white',
 										backgroundColor: state.user?.role && colorRole[state.user?.role],
 										px: 0.5,
 										color: 'white',

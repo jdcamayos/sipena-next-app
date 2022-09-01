@@ -1,14 +1,8 @@
 import { Base } from './base'
-import { Customer } from './customers'
-import { User } from './users'
 
 export interface Auth {
-	auth: {
-		isAuth: boolean
-		token: string
-	}
-	user: User | null
-	customer: Customer | null
+	isAuth: boolean
+	token: string
 }
 
 // Dto
