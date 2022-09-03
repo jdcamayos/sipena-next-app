@@ -1,32 +1,24 @@
+import { config } from '../../config'
 import * as React from 'react'
 // MUI Styles
 import Box from '@mui/material/Box'
-import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
+import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 // Icons
-// import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
-// import NoteAddIcon from '@mui/icons-material/NoteAdd'
-// Others
+// Types
 import { Attachment } from '../../types'
-import { config } from '../../config'
 
-type Props = {
-	attachments: Attachment[]
-}
-
-type AttachmentFileProps = {
+interface AttachmentFileProps {
 	attachment: Attachment
 }
 
 const AttachmentFile = (props: AttachmentFileProps) => {
 	const { attachment: at } = props
-	// const navigate = useNavigate()
-	// console.log(at)
 	return (
 		<Grid item xs={6} md={3} lg={2}>
 			<Paper
@@ -43,7 +35,6 @@ const AttachmentFile = (props: AttachmentFileProps) => {
 				}}
 			>
 				<IconButton
-					// onClick={handleDeleteFile}
 					sx={{
 						position: 'absolute',
 						top: 0,
@@ -60,12 +51,9 @@ const AttachmentFile = (props: AttachmentFileProps) => {
 				</IconButton>
 				<IconButton
 					component="a"
-					href={`${config.filesURL}/${at.path}`}
+					href={`${config.filesUrl}/${at.path}`}
 					target="_blank"
 					download={at.originalname}
-					// onClick={
-					// 	() => window.location.href(`${config.backendURL}/${at.path}`)
-					// }
 					sx={{
 						position: 'absolute',
 						bottom: 0,
@@ -94,7 +82,14 @@ const AttachmentFile = (props: AttachmentFileProps) => {
 									: theme.palette.grey[100],
 					 	}}
 					/>
-					<Typography variant='caption' sx={{ maxWidth: '100%' }} align="center">
+					<Typography
+						variant='caption'
+						sx={{
+							maxWidth: '100%',
+							wordBreak: 'break-word'
+						}}
+						align="center"
+					>
 						{at.originalname}
 					</Typography>
 				</Box>
@@ -103,10 +98,14 @@ const AttachmentFile = (props: AttachmentFileProps) => {
 	)
 }
 
+interface Props {
+	attachments: Attachment[]
+}
+
 export default function AttachmentBox(props: Props) {
 	const { attachments } = props
 	return (
-		<Paper sx={{ padding: 2 }}>
+		<Paper sx={{ padding: 2, marginTop: 2 }}>
 			<Grid container spacing={1}>
 				{attachments.map(at => (
 					<AttachmentFile key={at.id} attachment={at} />

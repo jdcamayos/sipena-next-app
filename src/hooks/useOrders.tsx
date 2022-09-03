@@ -1,49 +1,47 @@
-import * as React from 'react'
 import { AppContext } from '../contexts/AppContext'
 import { OrdersService } from '../services'
-import { Meta, OrderItem } from '../types'
+import * as action from '../app/actions'
+import * as React from 'react'
 
 export default function useOrders() {
 	const [loading, setLoading] = React.useState(false)
-	const [orders, setOrders] = React.useState<OrderItem[]>([])
-	const [meta, setMeta] = React.useState<Meta>({} as Meta)
-	const { state } = React.useContext(AppContext)
+	const { state, dispatch } = React.useContext(AppContext)
+	const { data: orders, meta } = state.orders
 
 	const ordersService = new OrdersService()
 
+	// Initial fetch
+	React.useEffect(() => {
+		if (!orders.length) {
+			fetchOrders()
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [])
+
+	// Fetch with something changed
 	React.useEffect(() => {
 		fetchOrders()
-	})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [dispatch])
 
 	const fetchOrders = async (limit?: number, offset?: number) => {
 		try {
 			setLoading(true)
 			if (state.user?.role === 'admin') {
-				const { data, meta } = await ordersService.findAll()
-				setOrders(data)
-				setMeta(meta)
+				const response = await ordersService.findAll()
+				console.log(response)
+				dispatch(action.getOrdersRequest(response))
 			}
 			if (state.user?.role === 'customer') {
-				const { data, meta } = await ordersService.findAllByCustomer()
-				setOrders(data)
-				setMeta(meta)
+				const response = await ordersService.findAllByCustomer()
+				console.log(response)
+				dispatch(action.getOrdersRequest(response))
 			}
 			if (state.user?.role === 'worker') {
-				const { data, meta } = await ordersService.findAllByWorker()
-				setOrders(data)
-				setMeta(meta)
+				const response = await ordersService.findAllByWorker()
+				console.log(response)
+				dispatch(action.getOrdersRequest(response))
 			}
-			setLoading(false)
-		} catch (error) {
-			setLoading(false)
-			console.log(error)
-		}
-	}
-
-	const nextPage = async () => {
-		try {
-			setLoading(true)
-
 			setLoading(false)
 		} catch (error) {
 			setLoading(false)
@@ -62,5 +60,16 @@ export default function useOrders() {
 		}
 	}
 
-	return { orders, meta, loading, nextPage, prevPage }
+	const nextPage = async () => {
+		try {
+			setLoading(true)
+
+			setLoading(false)
+		} catch (error) {
+			setLoading(false)
+			console.log(error)
+		}
+	}
+
+	return { loading, orders, meta, prevPage, nextPage }
 }

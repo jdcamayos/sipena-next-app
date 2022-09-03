@@ -1,15 +1,16 @@
-import { User } from '../../types'
 import * as React from 'react'
 // MUI Styles
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
+// Types
+import { User } from '../../types'
 
-type UserInfoProps = {
+interface Props {
 	user: User
 }
 
-export default function UserInfo(props: UserInfoProps) {
+export default function UserInfo(props: Props) {
   const { user } = props
 	return (
 		<Grid item xs={12} md={6} component='form' container spacing={2} sx={{ paddingBottom: 2 }}>

@@ -2,6 +2,7 @@ import {
 	AddAttachmentDto,
 	AddAttachmentResponse,
 	AddCommentDto,
+	AddCommentResponse,
 	AddWorkerDto,
 	CreateOrderDto,
 	CreateOrderResponse,
@@ -17,11 +18,11 @@ export class OrdersService {
 		return data
 	}
 	async findAllByCustomer() {
-		const { data } = await service.get<FindAllOrderResponse>(`/orders/customer`)
+		const { data } = await service.get<FindAllOrderResponse>(`/orders/customers`)
 		return data
 	}
 	async findAllByWorker() {
-		const { data } = await service.get<FindAllOrderResponse>(`/orders`)
+		const { data } = await service.get<FindAllOrderResponse>(`/orders/workers`)
 		return data
 	}
 	async findOne(orderId: Order['id']) {
@@ -38,7 +39,7 @@ export class OrdersService {
 		return data
 	}
 	async addCommentToOrder(orderId: Order['id'], addCommentDto: AddCommentDto) {
-		const { data } = await service.post<AddCommentDto>(`/orders/${orderId}/comments`, addCommentDto)
+		const { data } = await service.post<AddCommentResponse>(`/orders/${orderId}/comments`, addCommentDto)
 		return data
 	}
 	async addWorkerToOrder(orderId: Order['id'], addWorkerDto: AddWorkerDto) {

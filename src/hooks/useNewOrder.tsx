@@ -11,10 +11,13 @@ export default function useNewOrder() {
 		customerId: state.customer?.id ? state.customer.id : '',
 		containers: [],
 	}
+
 	const order = state.newOrder
 
 	React.useEffect(() => {
-		dispatch(action.createOrder(initialValues))
+		if (state.customer) {
+			dispatch(action.createOrder(state.customer.id))
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 

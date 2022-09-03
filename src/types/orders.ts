@@ -1,12 +1,9 @@
 import { Attachment } from './attachments'
 import { Base, Meta } from './base'
 import { Container, CreateContainerDto, CreateContainerItem } from './container'
+import { Comment } from './comments'
+import { Worker } from './workers'
 
-// export interface OrderBase {
-// 	date: Date
-// 	customerId: string
-// 	containers: CreateContainerDto[]
-// }
 
 export interface Order extends Base {
 	date: Date
@@ -43,7 +40,13 @@ export interface FindOneOrderResponse extends Order {
 	attachments: Attachment[]
 	comments: Comment[]
 	containers: Container[]
-	workers: Object
+	workers: {
+		assignedBy: string
+		user: {
+			id: string
+			email: string
+		}
+	}[]
 }
 
 export interface CreateOrderResponse extends Order {

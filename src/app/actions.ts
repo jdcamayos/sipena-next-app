@@ -1,4 +1,4 @@
-import { CreateContainerDto, CreateOrderDto, UpdateContainerDto } from "../types"
+import { Attachment, Auth, Comment, CreateContainerDto, CreateContainerItem, CreateOrderDto, Customer, FindAllOrderResponse, FindAllUserResponse, FindOneOrderResponse, Order, UpdateContainerDto, User } from "../types"
 
 export interface ActionType {
 	type: string
@@ -7,7 +7,6 @@ export interface ActionType {
 
 export const actions = {
 	// Auth
-	// registerRequest: 'REGISTER_REQUEST',
 	loginRequest: 'LOGIN_REQUEST',
 	logoutRequest: 'LOGOUT_REQUEST',
 	// User & Customer
@@ -23,36 +22,40 @@ export const actions = {
 	removeContainer: 'REMOVE_CONTAINER',
 	createOrderRequest: 'CREATE_ORDER_REQUEST',
 	// Order
+	setOrderId: 'SET_ORDER_ID',
+	getOrderRequest: 'GET_ORDER_REQUEST',
 	addAttachmentRequest: 'ADD_ATTACHMENT_REQUEST',
 	addCommentRequest: 'ADD_COMMENT_REQUEST',
 	addWorkerRequest: 'ADD_WORKER_REQUEST',
+	// Admin
+	getUsersRequest: 'GET_USER_REQUEST'
 }
 
-// export const registerRequest = (payload: any) => ({
-// 	type: actions.registerRequest,
-// 	payload,
-// })
-export const loginRequest = (payload: any) => ({
+// Auth
+export const loginRequest = (payload: Auth['token']) => ({
 	type: actions.loginRequest,
 	payload,
 })
-export const logoutRequest = (payload: any) => ({
+export const logoutRequest = (payload: unknown) => ({
 	type: actions.logoutRequest,
 	payload,
 })
-export const getMeRequest = (payload: any) => ({
+// User & Customer
+export const getMeRequest = (payload: User) => ({
 	type: actions.getMeRequest,
 	payload,
 })
-export const getCustomerRequest = (payload: any) => ({
+export const getCustomerRequest = (payload: Customer) => ({
 	type: actions.getCustomerRequest,
 	payload,
 })
-export const getOrdersRequest = (payload: any) => ({
+// Orders
+export const getOrdersRequest = (payload: FindAllOrderResponse) => ({
 	type: actions.getOrdersRequest,
 	payload,
 })
-export const createOrder = (payload: CreateOrderDto) => ({
+// CreateOrder Form
+export const createOrder = (payload: Customer['id']) => ({
 	type: actions.createOrder,
 	payload,
 })
@@ -68,23 +71,37 @@ export const editContainer = (payload: UpdateContainerDto) => ({
 	type: actions.editContainer,
 	payload
 })
-export const removeContainer = (payload: number) => ({
+export const removeContainer = (payload: CreateContainerItem['id']) => ({
 	type: actions.removeContainer,
 	payload
 })
-export const createOrderRequest = (payload: any) => ({
+export const createOrderRequest = (payload: unknown) => ({
 	type: actions.createOrderRequest,
 	payload,
 })
-export const addAttachmentRequest = (payload: any) => ({
+// Order
+export const setOrderId = (payload: Order['id']) => ({
+	type: actions.setOrderId,
+	payload
+})
+export const getOrderRequest = (payload: FindOneOrderResponse) => ({
+	type: actions.getOrderRequest,
+	payload,
+})
+export const addAttachmentRequest = (payload: Attachment) => ({
 	type: actions.addAttachmentRequest,
 	payload,
 })
-export const addCommentRequest = (payload: any) => ({
+export const addCommentRequest = (payload: Comment) => ({
 	type: actions.addCommentRequest,
 	payload,
 })
-export const addWorkerRequest = (payload: any) => ({
+export const addWorkerRequest = (payload: unknown) => ({
 	type: actions.addWorkerRequest,
+	payload,
+})
+// Admin
+export const getUsersRequest = (payload: FindAllUserResponse) => ({
+	type: actions.getUsersRequest,
 	payload,
 })

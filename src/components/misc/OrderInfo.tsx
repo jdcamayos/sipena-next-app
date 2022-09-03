@@ -1,24 +1,26 @@
 import * as React from 'react'
 // MUI Styles
-import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
-// Others
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+// Hooks
 import useOrder from '../../hooks/useOrder'
-import { dateFormat } from '../../utils/dates'
-import ContainersTable from '../tables/ContainersTable'
-import AttachmentForm from '../forms/AttachmentForm'
+// Components
 import AttachmentBox from './AttachmentBox'
+import AttachmentForm from '../forms/AttachmentForm'
+import CommentBox from './CommentBox'
+import CommentForm from '../forms/CommentForm'
+import ContainersTable from '../tables/ContainersTable'
+import WorkerBox from './WorkerBox'
+import WorkerForm from '../forms/WorkerForm'
+// Utils
+import { dateFormat } from '../../utils/dates'
 
-type Props = {
-	orderId: string
-}
+interface Props {}
 
 export default function OrderInfo(props: Props) {
-	const { orderId } = props
-	const { order, loading } = useOrder(orderId)
+	const { order, loading } = useOrder()
 
 	if (loading)
 		return (
@@ -52,16 +54,27 @@ export default function OrderInfo(props: Props) {
 					<AttachmentBox attachments={order.attachments} />
 				</Grid>
 			</Grid>
-			{/* <Grid item xs={12}> */}
-
-			{/* </Grid> */}
-			<Grid item xs={12}>
-				<Typography variant='h6' fontWeight='bold'>
-					Workers
-				</Typography>
+			<Grid item xs={12} container>
+				<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+					<Typography variant='h6' fontWeight='bold'>
+						Workers
+					</Typography>
+					<WorkerForm />
+				</Grid>
+				<Grid item xs={12}>
+					<WorkerBox workers={order.workers} />
+				</Grid>
 			</Grid>
-			<Grid item xs={12}>
-				<Button variant='contained'>Assign Worker</Button>
+			<Grid item xs={12} container>
+				<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+					<Typography variant='h6' fontWeight='bold'>
+						Comments
+					</Typography>
+					<CommentForm />
+				</Grid>
+				<Grid item xs={12}>
+					<CommentBox comments={order.comments} />
+				</Grid>
 			</Grid>
 		</Grid>
 	)

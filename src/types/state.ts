@@ -1,7 +1,7 @@
 import { Auth } from './auth'
+import { CreateOrderDto, FindAllOrderResponse, FindOneOrderResponse, Order } from './orders'
 import { Customer } from './customers'
-import { CreateOrderDto, FindAllOrderResponse } from './orders'
-import { User } from './users'
+import { FindAllUserResponse, User } from './users'
 
 export interface State {
 	auth: Auth
@@ -9,5 +9,8 @@ export interface State {
 	customer: Customer | null
 	newOrder: CreateOrderDto
 	orders: FindAllOrderResponse
-	users: FindAllOrderResponse
+	actualOrderId: Order['id']
+	order: FindOneOrderResponse
+	users: FindAllUserResponse
+	workers: FindAllUserResponse
 }

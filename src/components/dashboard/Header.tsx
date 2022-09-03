@@ -91,7 +91,7 @@ export default function Header() {
 									>
 										Home
 									</Button>
-									{state.user?.role === 'customer' && (
+									{state.user?.role === 'customer' && state.customer && (
 										<Button
 											onClick={() => handleLinkUserMenu('/orders/new')}
 											sx={{ my: 2, color: 'white', display: 'block' }}

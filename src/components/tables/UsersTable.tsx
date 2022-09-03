@@ -9,19 +9,20 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
-// Others
+// Components
 import UserForm from '../forms/UserForm'
-import useAdmin from '../../hooks/useAdmin'
 import TableBodyLoading from './TableBodyLoading'
+// Hooks
+import useUsers from '../../hooks/useUsers'
 
 export default function UsersTable() {
-	const { users, loading } = useAdmin()
+	const { users, loading } = useUsers()
 
 	return (
 		<Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-			<Typography variant='h5' sx={{ mb: 2 }}>
+			{/* <Typography variant='h5' sx={{ mb: 2 }}>
 				Users
-			</Typography>
+			</Typography> */}
 			<TableContainer component={Paper} sx={{ maxWidth: 650 }}>
 				<Table size='small' aria-label='users table'>
 					<TableHead sx={{ backgroundColor: "primary.main", color: "black" }}>
@@ -34,14 +35,14 @@ export default function UsersTable() {
 					</TableHead>
 					<TableBody>
 						<TableBodyLoading loading={loading} rows={10} cells={4} />
-						{users.map(user => (
+						{users.length > 0 && users.map(user => (
 							<TableRow key={user.email} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 								<TableCell align='center'>
-									{user.blocked ? (
+									{/* {user.blocked ? (
 										<Box sx={{ margin: '0 auto', width: 20, height: 20, borderRadius: 20, backgroundColor: 'red' }} />
 									) : (
 										<Box sx={{ margin: '0 auto', width: 20, height: 20, borderRadius: 20, backgroundColor: 'green' }} />
-									)}
+									)} */}
 								</TableCell>
 								<TableCell align='left'>{user.email}</TableCell>
 								<TableCell align='center'>{user.role}</TableCell>

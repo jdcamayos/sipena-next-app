@@ -9,15 +9,27 @@ interface Props {
 
 export default function ThemeProvider(props: Props) {
 	const [mode, setMode] = React.useState<'light' | 'dark'>('light')
+
+	React.useEffect(() => {
+		const mode = window.localStorage.getItem('theme_mode')
+		if (typeof(mode) === 'string') {
+			if (mode === 'light' || mode === 'dark') {
+				setMode(mode)
+			}
+		}
+	}, [])
+
 	const theme = React.useMemo(
 		() =>
 			responsiveFontSizes(
 				createTheme({
 					palette: {
 						mode,
-						// primary: {
-						// 	main: '#',
-						// },
+						primary: {
+							main: '#f2652e',
+							dark: '#f2652e',
+							light: '#f2652e'
+						},
 						// warning: {
 						// 	main: '#',
 						// },
@@ -36,7 +48,7 @@ export default function ThemeProvider(props: Props) {
 					},
 					typography: {
 						// fontFamily: ''
-						htmlFontSize: 18,
+						// htmlFontSize: 18,
 					},
 				}),
 				{
@@ -49,7 +61,11 @@ export default function ThemeProvider(props: Props) {
 	const themeMode = React.useMemo(
 		() => ({
 			toggleThemeMode: () => {
-				setMode(prev => (prev === 'light' ? 'dark' : 'light'))
+				setMode(prev => {
+					const themeMode = prev === 'light' ? 'dark' : 'light'
+					window.localStorage.setItem('theme_mode', themeMode)
+					return themeMode
+				})
 			},
 		}),
 		[]

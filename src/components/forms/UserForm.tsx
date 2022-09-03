@@ -5,8 +5,9 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
-// Others
+// Components
 import UserInfo from './UserInfo'
+// Types
 import { AdminUser } from '../../types'
 
 type Props = {

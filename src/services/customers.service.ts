@@ -15,6 +15,10 @@ export class CustomersService {
 		const { data } = await service.get<FindAllCustomerResponse>('/customers')
 		return data
 	}
+	async findMe() {
+		const { data } = await service.get<FindOneCustomerResponse>(`/customers/me`)
+		return data
+	}
 	async findOne(customerId: Customer['id']) {
 		const { data } = await service.get<FindOneCustomerResponse>(`/customers/${customerId}`)
 		return data

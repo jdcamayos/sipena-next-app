@@ -7,12 +7,12 @@ import DialogTitle from '@mui/material/DialogTitle'
 // Icons
 import AddIcon from '@mui/icons-material/Add'
 // Components
-import AttachmentInput from './AttachmentInput'
+import WorkerInput from './WorkerInput'
 
 interface Props {}
 
-export default function AttachmentForm(props: Props) {
-	const [open, setOpen] = React.useState(false)
+export default function WorkerForm(props: Props) {
+  const [open, setOpen] = React.useState(false)
 
 	const handleClickOpen = () => {
 		setOpen(true)
@@ -21,17 +21,17 @@ export default function AttachmentForm(props: Props) {
 	const handleClose = () => {
 		setOpen(false)
 	}
-	return (
-		<>
-			<Button variant='outlined' startIcon={<AddIcon />} onClick={handleClickOpen}>
-				Add file
+  return (
+    <>
+      <Button variant='outlined' startIcon={<AddIcon />} onClick={handleClickOpen}>
+				Add worker
 			</Button>
 			<Dialog open={open} onClose={handleClose}>
-				<DialogTitle>Add file</DialogTitle>
+				<DialogTitle>Add worker</DialogTitle>
 				<DialogContent>
-					<AttachmentInput open={open} handleClose={handleClose} />
+					<WorkerInput open={open} handleClose={handleClose} />
 				</DialogContent>
 			</Dialog>
-		</>
-	)
+    </>
+  )
 }

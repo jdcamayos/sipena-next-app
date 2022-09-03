@@ -1,11 +1,13 @@
 import * as React from 'react'
+// MUI Styles
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
+// Components
 import CustomerInfo from './CustomerInfo'
 
-type Props = {
+interface Props {
 	isUpdate?: boolean
 }
 

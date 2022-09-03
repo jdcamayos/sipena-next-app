@@ -1,16 +1,18 @@
+import { useFormik } from 'formik'
 import * as React from 'react'
 // MUI Styles
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-// Others
-import { CreateCustomer } from '../../types'
-import { useFormik } from 'formik'
-import useCustomer from '../../hooks/useCustomer'
+// Hooks
+// import useCustomer from '../../hooks/useCustomer'
+import { CreateCustomerDto } from '../../types'
+// Types
+// import { CreateCustomer } from '../../types'
 
-type Props = {
-	initialValues?: CreateCustomer
+interface Props {
+	initialValues?: CreateCustomerDto
 	isForm?: boolean
 	isUpdate?: boolean
 	handleClose?: () => void
@@ -18,7 +20,7 @@ type Props = {
 
 export default function CustomerInfo(props: Props) {
   const { initialValues, isForm, isUpdate, handleClose } = props
-	const { createCustomer } = useCustomer()
+	// const { createCustomer } = useCustomer()
 
 	const formik = useFormik({
 		initialValues: initialValues
@@ -33,8 +35,8 @@ export default function CustomerInfo(props: Props) {
 			},
 		onSubmit: async values => {
       try {
-        // console.log(values)
-        await createCustomer(values)
+        console.log(values)
+        // await createCustomer(values)
         if (handleClose) {
           handleClose()
         }

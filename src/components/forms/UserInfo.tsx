@@ -1,17 +1,20 @@
+import { useFormik } from 'formik'
 import * as React from 'react'
+// MUI Styles
+import Button from '@mui/material/Button'
+import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
-import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import InputLabel from '@mui/material/InputLabel'
 import LoadingButton from '@mui/lab/LoadingButton'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
-import { useFormik } from 'formik'
-import { AdminUser, UpdateAdminUser } from '../../types'
-import useAdmin from '../../hooks/useAdmin'
+// Hooks
+import useUsers from '../../hooks/useUsers'
+// Types
+import { AdminUser, UpdateAdminUserDto } from '../../types'
 
 
 
@@ -22,7 +25,7 @@ type Props = {
 
 export default function UserInfo(props: Props) {
 	const { initialValues, handleClose } = props
-	const { updateUser, loading } = useAdmin()
+	const { updateUser, loading } = useUsers()
 
 	const formik = useFormik({
 		initialValues: initialValues
@@ -32,9 +35,9 @@ export default function UserInfo(props: Props) {
 				role: 'customer',
 				blocked: false,
 			},
-		onSubmit: async (values: UpdateAdminUser) => {
+		onSubmit: async (values: UpdateAdminUserDto) => {
 			if (initialValues) {
-				await updateUser(initialValues?.id, values)
+				await updateUser(values)
 				handleClose && handleClose()
 			}
 		},

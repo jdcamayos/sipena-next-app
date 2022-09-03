@@ -17,10 +17,10 @@ import ContainerForm from '../forms/ContainerForm'
 // Types
 import { Container, CreateContainerItem } from '../../types'
 
-type Props = {
+interface Props {
 	isForm: boolean
 	containers:  CreateContainerItem[] | Container[],
-	removeContainer: (id: number) => void
+	removeContainer?: (id: number) => void
 }
 
 export default function ContainersTable(props: Props) {
@@ -60,7 +60,7 @@ export default function ContainersTable(props: Props) {
 									{isForm && (
 										<TableCell align='center'>
 											<ContainerForm isUpdate={true} initialValues={container} />
-											<IconButton onClick={() =>  typeof container.id === 'number' && removeContainer(container.id)}>
+											<IconButton onClick={() =>  typeof container.id === 'number' && removeContainer && removeContainer(container.id)}>
 												<DeleteIcon />
 											</IconButton>
 										</TableCell>

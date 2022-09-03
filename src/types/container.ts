@@ -8,6 +8,7 @@ export interface ContainerBase {
 	forkliftOperator: boolean
 	stretchWrap: boolean
 	additionalInfo: string
+	orderId?: string
 }
 
 export interface Container extends Base {
@@ -18,6 +19,7 @@ export interface Container extends Base {
 	forkliftOperator: boolean
 	stretchWrap: boolean
 	additionalInfo: string
+	orderId?: string
 }
 
 // Dto

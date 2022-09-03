@@ -1,27 +1,12 @@
 import { State } from '../types'
 
 export const initialState: State = {
-	// auth: {
-	// 	isAuth: false,
-	// 	token: '',
-	// },
 	auth: {
-		isAuth: true,
-		token: 'flkjsadflaksjdflaksf'
+		isAuth: false,
+		token: '',
 	},
-	user: {
-		id: 'fdljaksdfjlaskdfjds',
-		createdAt: new Date(),
-		updatedAt: new Date(),
-		email: 'customer@undefined.sh',
-		role: 'customer'
-	},
+	user: null,
 	customer: null,
-	newOrder: {
-		customerId: '',
-		date: new Date(),
-		containers: []
-	},
 	orders: {
 		data: [],
 		meta: {
@@ -29,7 +14,25 @@ export const initialState: State = {
 			page: 0,
 			pages: 0,
 			totalItems: 0,
-		}
+		},
+	},
+	newOrder: {
+		containers: [],
+		customerId: '',
+		date: new Date(),
+	},
+	actualOrderId: '',
+	order: {
+		id: '',
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		date: new Date(),
+		status: false,
+		customerId: '',
+		attachments: [],
+		comments: [],
+		containers: [],
+		workers: [],
 	},
 	users: {
 		data: [],
@@ -38,6 +41,15 @@ export const initialState: State = {
 			page: 0,
 			pages: 0,
 			totalItems: 0,
-		}
-	}
+		},
+	},
+	workers: {
+		data: [],
+		meta: {
+			itemsPerPage: 0,
+			page: 0,
+			pages: 0,
+			totalItems: 0,
+		},
+	},
 }

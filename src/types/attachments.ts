@@ -15,9 +15,7 @@ export interface Attachment extends Base {
 }
 
 // Dto
-export interface AddAttachmentDto {
-	file: any
-}
+export interface AddAttachmentDto extends FormData {}
 
 // Response
 export interface AddAttachmentResponse extends Attachment {}

@@ -16,17 +16,17 @@ import AddIcon from '@mui/icons-material/Add'
 import CloseIcon from '@mui/icons-material/Close'
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile'
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
-// Others
+// Hooks
 import useOrder from '../../hooks/useOrder'
 
-type Props = {
+interface Props {
 	open: boolean
 	handleClose: () => void
 }
 
 export default function AttachmentInput(props: Props) {
 	const { open, handleClose } = props
-  const { loading, addFileToOrder } =  useOrder()
+  const { loading, addAttachment } =  useOrder()
 	const theme = useTheme()
 	const [file, setFile] = React.useState<any | null>(null)
 
@@ -50,7 +50,7 @@ export default function AttachmentInput(props: Props) {
 		if (file) {
 			const formData = new FormData()
 			formData.append('file', file)
-			await addFileToOrder(formData)
+			await addAttachment(formData)
 			handleClose()
 		}
 	}

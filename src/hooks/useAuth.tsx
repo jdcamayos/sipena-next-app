@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import * as React from 'react'
-import { getMeRequest, loginRequest, logoutRequest } from '../app/actions'
+// import { getCustomerRequest, getMeRequest, loginRequest, logoutRequest } from '../app/actions'
+import * as action from '../app/actions'
 import { AppContext } from '../contexts/AppContext'
 import { AuthService, CustomersService } from '../services'
 import { LoginDto, RecoveryPasswordDto, RegisterDto } from '../types'
@@ -14,26 +15,28 @@ export default function useAuth() {
 	const authService = new AuthService()
 	const customersService = new CustomersService()
 
+	// Initial fetch
 	React.useEffect(() => {
-		if (!!state.auth.isAuth) {
+		if (!state.auth.isAuth) {
 			const token = window.localStorage.getItem('access_token')
-			if (token) {
+			if (!!token) {
 				getMe(token)
 			}
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const getMe = async (token: string) => {
 		try {
 			setLoading(true)
-			dispatch(loginRequest(token))
+			dispatch(action.loginRequest(token))
 			const user = await authService.me()
-			dispatch(getMeRequest(user))
-			// TODO: Get customer info if exists
-			// if (user.role === 'customer') {
-			// const customer = await customersService.findOne(user)
-			// }
+			dispatch(action.getMeRequest(user))
+			if (user.role === 'customer') {
+				const customer = await customersService.findMe()
+				dispatch(action.getCustomerRequest(customer))
+			}
+			// router.back()
 			router.push('/')
 			setLoading(false)
 		} catch (error) {
@@ -94,7 +97,7 @@ export default function useAuth() {
 	const logout = () => {
 		setLoading(true)
 		window.localStorage.removeItem('access_token')
-		dispatch(logoutRequest({}))
+		dispatch(action.logoutRequest({}))
 		router.push('/login')
 		setLoading(false)
 	}
