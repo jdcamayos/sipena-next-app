@@ -96,7 +96,7 @@ export default function OrdersTable(props: Props) {
 								</TableCell>
 							</TableRow>
 						)}
-						{!!orders.length && orders.map(order => (
+						{!!orders.length && !loading && orders.map(order => (
 							<OrderRow key={order.id} order={order} />
 						))}
 					</TableBody>

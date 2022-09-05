@@ -3,6 +3,7 @@ import * as React from 'react'
 import Dialog from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
+// Icons
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
 // Components
@@ -10,7 +11,7 @@ import UserInfo from './UserInfo'
 // Types
 import { AdminUser } from '../../types'
 
-type Props = {
+interface Props {
 	initialValues: AdminUser
 }
 

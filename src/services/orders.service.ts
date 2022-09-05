@@ -5,6 +5,7 @@ import {
 	AddCommentResponse,
 	AddWorkerDto,
 	CreateOrderDto,
+	CreateOrderRequestDto,
 	CreateOrderResponse,
 	FindAllOrderResponse,
 	FindOneOrderResponse,
@@ -29,7 +30,7 @@ export class OrdersService {
 		const { data } = await service.get<FindOneOrderResponse>(`/orders/${orderId}`)
 		return data
 	}
-	async create(createOrderDto: CreateOrderDto) {
+	async create(createOrderDto: CreateOrderRequestDto) {
 		const { data } = await service.post<CreateOrderResponse>(`/orders`, createOrderDto)
 		return data
 	}

@@ -13,6 +13,7 @@ import {
 	State,
 	User,
 } from '../types'
+import { initialState } from './initialState'
 
 export const reducer = (state: State, action: ActionType): State => {
 	switch (action.type) {
@@ -64,13 +65,7 @@ const loginRequestReducer = (state: State, payload: Auth['token']): State => ({
 })
 
 const logoutRequestReducer = (state: State, payload: unknown): State => ({
-	...state,
-	auth: {
-		isAuth: false,
-		token: '',
-	},
-	customer: null,
-	user: null,
+	...initialState
 })
 
 const getMeRequestReducer = (state: State, payload: User): State => ({
@@ -150,6 +145,11 @@ const removeContainerReducer = (state: State, payload: CreateContainerItem['id']
 
 const createOrderRequestReducer = (state: State, payload: unknown): State => ({
 	...state,
+	newOrder: {
+		containers: [],
+		customerId: '',
+		date: new Date(),
+	},
 })
 
 const addAttachmentRequestReducer = (state: State, payload: Attachment): State => ({

@@ -30,6 +30,10 @@ export interface CreateOrderDto extends Omit<Order, 'id' | 'createdAt' | 'update
 	containers: CreateContainerItem[]
 }
 
+export interface CreateOrderRequestDto extends Omit<CreateOrderDto, 'containers'> {
+	containers: CreateContainerDto[]
+}
+
 // Responses
 export interface FindAllOrderResponse {
 	data: OrderItem[]

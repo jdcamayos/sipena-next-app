@@ -12,6 +12,10 @@ export interface AdminUser extends User {
 // Dto
 export interface UpdateAdminUserDto extends Partial<AdminUser> {}
 
+export interface ChangeMyPasswordDto {
+	password: string
+}
+
 // Responses
 export interface FindAllUserResponse {
 	data: AdminUser[]

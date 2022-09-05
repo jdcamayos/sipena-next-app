@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import * as React from 'react'
-import { Container, CreateContainerDto, CreateContainerItem } from '../../types'
+// MUI Styles
 import Button from '@mui/material/Button'
 import Checkbox from '@mui/material/Checkbox'
 import FormControl from '@mui/material/FormControl'
@@ -12,6 +12,8 @@ import RadioGroup from '@mui/material/RadioGroup'
 import TextField from '@mui/material/TextField'
 // Hooks
 import useNewOrder from '../../hooks/useNewOrder'
+// Types
+import { Container, CreateContainerDto, CreateContainerItem } from '../../types'
 
 interface Props {
 	initialValues?: CreateContainerItem | Container

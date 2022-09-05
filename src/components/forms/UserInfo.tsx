@@ -18,7 +18,7 @@ import { AdminUser, UpdateAdminUserDto } from '../../types'
 
 
 
-type Props = {
+interface Props {
 	initialValues?: AdminUser
 	handleClose?: () => void
 }

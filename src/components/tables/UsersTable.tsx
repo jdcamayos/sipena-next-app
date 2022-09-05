@@ -38,11 +38,11 @@ export default function UsersTable() {
 						{users.length > 0 && users.map(user => (
 							<TableRow key={user.email} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 								<TableCell align='center'>
-									{/* {user.blocked ? (
+									{user.blocked ? (
 										<Box sx={{ margin: '0 auto', width: 20, height: 20, borderRadius: 20, backgroundColor: 'red' }} />
 									) : (
 										<Box sx={{ margin: '0 auto', width: 20, height: 20, borderRadius: 20, backgroundColor: 'green' }} />
-									)} */}
+									)}
 								</TableCell>
 								<TableCell align='left'>{user.email}</TableCell>
 								<TableCell align='center'>{user.role}</TableCell>

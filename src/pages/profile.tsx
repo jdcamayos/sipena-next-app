@@ -4,6 +4,8 @@ import * as React from 'react'
 import Avatar from '@mui/material/Avatar'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
+import IconButton from '@mui/material/IconButton'
+import EditIcon from '@mui/icons-material/Edit'
 // Components
 import CustomerForm from '../components/forms/CustomerForm'
 import CustomerInfo from '../components/forms/CustomerInfo'
@@ -19,12 +21,12 @@ export default function Profile(props: NextPage) {
   const customerSection = () => {
 		if (customer === null)
 			return (
-				<Grid item xs={12} sx={{ display: 'grid', placeContent: 'center', py: 2  }}>
+				<Grid item xs={12} sx={{ display: 'grid', placeContent: 'center', py: 2 }}>
 					<CustomerForm />
 				</Grid>
 			)
 
-		return <CustomerInfo initialValues={customer} />
+		return <CustomerInfo />
 	}
 
   return (

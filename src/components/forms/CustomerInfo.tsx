@@ -2,65 +2,82 @@ import { useFormik } from 'formik'
 import * as React from 'react'
 // MUI Styles
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-// Hooks
-// import useCustomer from '../../hooks/useCustomer'
-import { CreateCustomerDto } from '../../types'
+// Icons
+import EditIcon from '@mui/icons-material/Edit'
 // Types
-// import { CreateCustomer } from '../../types'
+import { CreateCustomerDto } from '../../types'
+// Hooks
+import useProfile from '../../hooks/useProfile'
+// Components
+import CustomerForm from './CustomerForm'
 
 interface Props {
-	initialValues?: CreateCustomerDto
 	isForm?: boolean
 	isUpdate?: boolean
 	handleClose?: () => void
 }
 
 export default function CustomerInfo(props: Props) {
-  const { initialValues, isForm, isUpdate, handleClose } = props
-	// const { createCustomer } = useCustomer()
+	const { isForm, isUpdate, handleClose } = props
+	const { customer, user, createCustomer, updateCustomer } = useProfile()
+	const [initialValues, setInitialValues] = React.useState({
+		userId: user?.id || '',
+		companyName: '',
+		streetAddress: '',
+		city: '',
+		state: '',
+		postalCode: '',
+		phone: '',
+	})
+
+	React.useEffect(() => {
+		if (customer) {
+			console.log('Eyyy')
+			console.log(customer)
+			setInitialValues({
+				userId: customer.userId,
+				companyName: customer.companyName,
+				streetAddress: customer.streetAddress,
+				city: customer.city,
+				state: customer.state,
+				postalCode: customer.postalCode,
+				phone: customer.phone,
+			})
+		}
+	}, [customer])
 
 	const formik = useFormik({
-		initialValues: initialValues
-			? initialValues
-			: {
-				companyName: '',
-				streetAddress: '',
-				city: '',
-				state: '',
-				postalCode: '',
-				phone: '',
-			},
+		initialValues,
 		onSubmit: async values => {
-      try {
-        console.log(values)
-        // await createCustomer(values)
-        if (handleClose) {
-          handleClose()
-        }
-      } catch (error) {
-        console.log(error)
-      }
+			if (!handleClose) {
+				return
+			}
+			if (isUpdate) {
+				await updateCustomer(values)
+			} else {
+				await createCustomer(values)
+			}
+			handleClose()
 		},
+		enableReinitialize: true
 	})
 
 	return (
-		<Grid
-			item
-			xs={12}
-			component='form'
-			onSubmit={formik.handleSubmit}
-			container
-			spacing={2}
-			sx={{ py: 2 }}
-		>
+		<Grid item container spacing={2} sx={{ py: 2 }} xs={12} component='form' onSubmit={formik.handleSubmit}>
 			{!isForm && (
-				<Grid item xs={12}>
+				<Grid
+					item
+					xs={12}
+					sx={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+				>
 					<Typography variant='h5' align='center'>
 						Customer info
 					</Typography>
+					{!isForm && <CustomerForm isUpdate={true} />}
 				</Grid>
 			)}
 			<Grid item xs={12} md={6}>
