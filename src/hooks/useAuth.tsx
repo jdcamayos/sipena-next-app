@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import * as React from 'react'
-// import { getCustomerRequest, getMeRequest, loginRequest, logoutRequest } from '../app/actions'
 import * as action from '../app/actions'
 import { AppContext } from '../contexts/AppContext'
+// import { useHistory } from '../contexts/HistoryContext'
 import { AuthService, CustomersService } from '../services'
 import { LoginDto, RecoveryPasswordDto, RegisterDto } from '../types'
 
@@ -11,7 +11,6 @@ export default function useAuth() {
 	const [error, setError] = React.useState<string[]>([])
 	const { state, dispatch } = React.useContext(AppContext)
 
-	const router = useRouter()
 	const authService = new AuthService()
 	const customersService = new CustomersService()
 
@@ -36,10 +35,9 @@ export default function useAuth() {
 				const customer = await customersService.findMe()
 				dispatch(action.getCustomerRequest(customer))
 			}
-			// router.back()
-			router.push('/')
 			setLoading(false)
 		} catch (error) {
+			window.localStorage.removeItem('access_token')
 			setLoading(false)
 			console.log(error)
 		}
@@ -98,7 +96,6 @@ export default function useAuth() {
 		setLoading(true)
 		window.localStorage.removeItem('access_token')
 		dispatch(action.logoutRequest({}))
-		router.push('/login')
 		setLoading(false)
 	}
 

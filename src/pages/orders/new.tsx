@@ -20,36 +20,55 @@ import ContainerForm from '../../components/forms/ContainerForm'
 import ContainersTable from '../../components/tables/ContainersTable'
 // Hooks
 import useNewOrder from '../../hooks/useNewOrder'
+import useAuth from '../../hooks/useAuth'
+import { useRouter } from 'next/router'
 
 export default function NewOrder(props: NextPage) {
-  const { order, setDate, sendOrder, removeContainer } = useNewOrder()
-  const { containers, date } = order
+	const { order, setDate, sendOrder, removeContainer } = useNewOrder()
+	const { loading, state } = useAuth()
+	const { replace } = useRouter()
 
-  const dateHandleChange = (value: Date | null) => {
-    if (value instanceof Date) {
-      setDate(value)
-    } else {
-      setDate(new Date())
-    }
-  }
+	const { containers, date } = order
 
-  return (
-    <DashboardLayout>
-      <Paper sx={{ p: 2, pt: 0 }}>
+	const dateHandleChange = (value: Date | null) => {
+		if (value instanceof Date) {
+			setDate(value)
+		} else {
+			setDate(new Date())
+		}
+	}
+
+	React.useEffect(() => {
+		if (!loading && !window.localStorage.getItem('access_token')) {
+			replace('/login')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [loading])
+
+	if (loading) return <div>Loading...</div>
+
+	return (
+		<DashboardLayout>
+			<Paper sx={{ p: 2, pt: 0 }}>
 				<Grid container spacing={3} sx={{ my: 2 }}>
-					<Grid item xs={12} sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-							<IconButton>
-								<ArrowBackIcon />
-							</IconButton>
-							<Typography variant='h5' sx={{ textAlign: { xs: 'left', md: 'center' }}}>
-								New order
-							</Typography>
-							<Button sx={{ display: { xs: 'none', sm: 'flex' } }} variant="contained" endIcon={<SendIcon />} onClick={sendOrder}>
-								Send Order
-							</Button>
-							<IconButton sx={{ display: { xs: 'block', sm: 'none' } }} onClick={sendOrder} color="primary">
-								<SendIcon />
-							</IconButton>
+					<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+						<IconButton>
+							<ArrowBackIcon />
+						</IconButton>
+						<Typography variant='h5' sx={{ textAlign: { xs: 'left', md: 'center' } }}>
+							New order
+						</Typography>
+						<Button
+							sx={{ display: { xs: 'none', sm: 'flex' } }}
+							variant='contained'
+							endIcon={<SendIcon />}
+							onClick={sendOrder}
+						>
+							Send Order
+						</Button>
+						<IconButton sx={{ display: { xs: 'block', sm: 'none' } }} onClick={sendOrder} color='primary'>
+							<SendIcon />
+						</IconButton>
 					</Grid>
 					<Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 						<LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -69,6 +88,6 @@ export default function NewOrder(props: NextPage) {
 					</Grid>
 				</Grid>
 			</Paper>
-    </DashboardLayout>
-  )
+		</DashboardLayout>
+	)
 }

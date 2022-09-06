@@ -13,12 +13,15 @@ import DashboardLayout from '../components/dashboard/DashboardLayout'
 import UserInfo from '../components/misc/UserInfo'
 // Hooks
 import useAuth from '../hooks/useAuth'
+import { useRouter } from 'next/router'
 
 export default function Profile(props: NextPage) {
-  const { state } = useAuth()
-  const { auth, user, customer } = state
+	const { loading, state } = useAuth()
+	const { replace } = useRouter()
 
-  const customerSection = () => {
+	const { user, customer } = state
+
+	const customerSection = () => {
 		if (customer === null)
 			return (
 				<Grid item xs={12} sx={{ display: 'grid', placeContent: 'center', py: 2 }}>
@@ -29,9 +32,18 @@ export default function Profile(props: NextPage) {
 		return <CustomerInfo />
 	}
 
-  return (
-    <DashboardLayout>
-      <Paper sx={{ p: 3 }}>
+	React.useEffect(() => {
+		if (!loading && !window.localStorage.getItem('access_token')) {
+			replace('/login')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [loading, state.auth.isAuth])
+
+	if (loading) return <div>Loading...</div>
+
+	return (
+		<DashboardLayout>
+			<Paper sx={{ p: 3 }}>
 				<Grid container maxWidth='lg'>
 					<Grid item xs={12} md={6} sx={{ display: 'grid', placeContent: 'center' }}>
 						<Avatar
@@ -46,6 +58,6 @@ export default function Profile(props: NextPage) {
 					{user?.role === 'customer' && customerSection()}
 				</Grid>
 			</Paper>
-    </DashboardLayout>
-  )
+		</DashboardLayout>
+	)
 }

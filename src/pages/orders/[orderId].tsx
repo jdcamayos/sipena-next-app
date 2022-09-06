@@ -12,18 +12,29 @@ import LoadingBackground from '../../components/misc/LoadingBackground'
 import OrderInfo from '../../components/misc/OrderInfo'
 // Hooks
 import useOrder from '../../hooks/useOrder'
+import useAuth from '../../hooks/useAuth'
 
 export default function Order(props: NextPage) {
+	const { loading: authLoading, state } = useAuth()
 	const router = useRouter()
-	const orderId = Array.isArray(router.query.orderId) ? router.query.orderId[0] : router.query.orderId
 	const { setOrderId, order, loading } = useOrder()
+	const orderId = Array.isArray(router.query.orderId) ? router.query.orderId[0] : router.query.orderId
 
 	React.useEffect(() => {
 		if (orderId) {
 			setOrderId(orderId)
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [orderId])
+
+	React.useEffect(() => {
+		if (!authLoading && !window.localStorage.getItem('access_token')) {
+			router.replace('/login')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [authLoading])
+
+	if (authLoading) return <div>Loading...</div>
 
 	if (orderId === 'undefined') return <LoadingBackground />
 
@@ -35,7 +46,7 @@ export default function Order(props: NextPage) {
 						Order Details
 					</Typography>
 				</Grid>
-				{loading && <CircularProgress/>}
+				{loading && <CircularProgress />}
 				{order.id && <OrderInfo />}
 			</Grid>
 		</DashboardLayout>

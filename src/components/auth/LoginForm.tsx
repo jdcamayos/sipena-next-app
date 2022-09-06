@@ -14,19 +14,22 @@ import PasswordInput from '../misc/PasswordInput'
 import useAuth from '../../hooks/useAuth'
 // Schemas
 import { loginSchema } from '../../schemas'
+import { useRouter } from 'next/router'
 
 interface Props {}
 
 export default function LoginForm(props: Props) {
 	const { loading, login } = useAuth()
+	const router = useRouter()
 	const formik = useFormik({
 		initialValues: {
 			email: '',
 			password: '',
 		},
-		onSubmit: values => {
+		onSubmit: async values => {
 			// console.log(values)
-			login(values)
+			await login(values)
+			router.replace('/')
 		},
 		validationSchema: loginSchema,
 	})

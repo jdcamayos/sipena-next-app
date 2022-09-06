@@ -36,8 +36,6 @@ export default function CustomerInfo(props: Props) {
 
 	React.useEffect(() => {
 		if (customer) {
-			console.log('Eyyy')
-			console.log(customer)
 			setInitialValues({
 				userId: customer.userId,
 				companyName: customer.companyName,

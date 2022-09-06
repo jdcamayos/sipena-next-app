@@ -1,6 +1,7 @@
 // import { ChangePasswordCredentials } from '../../types'
 // import { changePasswordSchema } from '../../schemas'
-import { Link as LinkRouter } from 'react-router-dom'
+// import { Link as LinkRouter } from 'react-router-dom'
+import LinkRouter from 'next/link'
 import { useFormik } from 'formik'
 import * as React from 'react'
 import AuthButton from './AuthButton'
@@ -12,6 +13,7 @@ import Grid from '@mui/material/Grid'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
 import PasswordInput from '../misc/PasswordInput'
+import { useRouter } from 'next/router'
 
 type Props = {
 	loading: boolean
@@ -20,12 +22,14 @@ type Props = {
 
 export default function ChangePasswordForm(props: Props) {
 	const { loading, changePassword } = props
+	const router = useRouter()
 	const formik = useFormik({
 		initialValues: {
 			password: '',
 		},
-		onSubmit: values => {
-			changePassword(values.password)
+		onSubmit: async values => {
+			await changePassword(values.password)
+			router.replace('/')
 		},
 		// validationSchema: recoveryPasswordSchema,
 	})
@@ -39,21 +43,10 @@ export default function ChangePasswordForm(props: Props) {
 				margin='normal'
 				required
 			/>
-			{/* <FormControlLabel
-				control={
-					<Checkbox
-						name='rememberMe'
-						checked={formik.values.rememberMe}
-						onChange={formik.handleChange}
-						color='primary'
-					/>
-				}
-				label='Remember me'
-			/> */}
 			<AuthButton loading={loading} content='Change Password' />
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
-					<Link component={LinkRouter} to='/login' variant='body2'>
+					<Link component={LinkRouter} href='/login' variant='body2'>
 						<Typography align='center' sx={{ '&:hover': { textDecoration: 'underline', cursor: 'pointer' } }}>
 							Back to login
 						</Typography>

@@ -29,17 +29,17 @@ export default function useOrders() {
 			setLoading(true)
 			if (state.user?.role === 'admin') {
 				const response = await ordersService.findAll()
-				console.log(response)
+				// console.log(response)
 				dispatch(action.getOrdersRequest(response))
 			}
 			if (state.user?.role === 'customer') {
 				const response = await ordersService.findAllByCustomer()
-				console.log(response)
+				// console.log(response)
 				dispatch(action.getOrdersRequest(response))
 			}
 			if (state.user?.role === 'worker') {
 				const response = await ordersService.findAllByWorker()
-				console.log(response)
+				// console.log(response)
 				dispatch(action.getOrdersRequest(response))
 			}
 			setLoading(false)

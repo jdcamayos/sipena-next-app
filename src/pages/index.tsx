@@ -8,12 +8,27 @@ import DashboardLayout from '../components/dashboard/DashboardLayout'
 import OrdersTable from '../components/tables/OrdersTable'
 // Hooks
 import useAuth from '../hooks/useAuth'
+import { useRouter } from 'next/router'
 
 export default function Home(props: NextPage) {
-	const { state } = useAuth()
+	const { loading, state } = useAuth()
+	const { replace } = useRouter()
+
+	React.useEffect(() => {
+		if (!loading && !window.localStorage.getItem('access_token')) {
+			replace('/login')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [loading])
+
+	if (loading) return <div>Loading...</div>
+
 	return (
 		<DashboardLayout>
-			{state.customer && <OrdersTable />}
+			{/* For Admins & Workers */}
+			{state.user?.role !== 'customer' && <OrdersTable />}
+			{/* For Customers */}
+			{state.user?.role === 'customer' && state.customer && <OrdersTable />}
 			{state.user?.role === 'customer' && !state.customer && (
 				<Grid item xs={12} sx={{ display: 'grid', placeContent: 'center', py: 2 }}>
 					<CustomerForm />

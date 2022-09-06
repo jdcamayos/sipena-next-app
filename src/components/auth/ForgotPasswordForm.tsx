@@ -11,17 +11,20 @@ import Typography from '@mui/material/Typography'
 import AuthButton from './AuthButton'
 // Hooks
 import useAuth from '../../hooks/useAuth'
+import { useRouter } from 'next/router'
 
 interface Props {}
 
 export default function ForgotPasswordForm(props: Props) {
 	const { loading, forgotPassword } = useAuth()
+	const router = useRouter()
 	const formik = useFormik({
 		initialValues: {
 			email: '',
 		},
-		onSubmit: values => {
-			console.log(values)
+		onSubmit: async values => {
+			await forgotPassword(values.email)
+			router.replace('/login')
 		},
 		// validationSchema: forgotPasswordSchema,
 	})

@@ -42,8 +42,9 @@ export default function Header() {
 		setAnchorElUser(event.currentTarget)
 	}
 
-	const handleLogout = () => {
-		logout()
+	const handleLogout = async () => {
+		await logout()
+		router.replace('/login')
 		handleCloseUserMenu()
 	}
 

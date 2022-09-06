@@ -12,19 +12,22 @@ import AuthButton from './AuthButton'
 import PasswordInput from '../misc/PasswordInput'
 // Hooks
 import useAuth from '../../hooks/useAuth'
+import { useRouter } from 'next/router'
 
 interface Props {}
 
 export default function RegisterForm(props: Props) {
-	const { loading } = useAuth()
+	const { loading, register } = useAuth()
+	const router = useRouter()
 	const formik = useFormik({
 		initialValues: {
 			email: '',
 			password: '',
-			rememberMe: false,
 		},
-		onSubmit: values => {
-			console.log(values)
+		onSubmit: async values => {
+			// console.log(values)
+			await register(values)
+			router.replace('/')
 		},
 		// validationSchema: signUpSchema,
 	})
