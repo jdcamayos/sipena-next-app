@@ -9,8 +9,11 @@ export interface State {
 	customer: Customer | null
 	newOrder: CreateOrderDto
 	orders: FindAllOrderResponse
+	ordersPage: number
 	actualOrderId: Order['id']
 	order: FindOneOrderResponse
 	users: FindAllUserResponse
+	usersPage: number
 	workers: FindAllUserResponse
+	workersPage: number
 }

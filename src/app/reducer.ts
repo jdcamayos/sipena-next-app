@@ -27,6 +27,8 @@ export const reducer = (state: State, action: ActionType): State => {
 			return getCustomerRequestReducer(state, action.payload)
 		case actions.getOrdersRequest:
 			return getOrdersRequestReducer(state, action.payload)
+		case actions.setOrdersPage:
+			return setOrdersPageReducer(state, action.payload)
 		case actions.createOrder:
 			return createOrderReducer(state, action.payload)
 		case actions.setOrderId:
@@ -51,6 +53,8 @@ export const reducer = (state: State, action: ActionType): State => {
 			return addWorkerRequestReducer(state, action.payload)
 		case actions.getUsersRequest:
 			return getUsersRequestReducer(state, action.payload)
+		case actions.setUsersPage:
+			return setUsersPageReducer(state, action.payload)
 		default:
 			return state
 	}
@@ -65,7 +69,7 @@ const loginRequestReducer = (state: State, payload: Auth['token']): State => ({
 })
 
 const logoutRequestReducer = (state: State, payload: unknown): State => ({
-	...initialState
+	...initialState,
 })
 
 const getMeRequestReducer = (state: State, payload: User): State => ({
@@ -81,6 +85,11 @@ const getCustomerRequestReducer = (state: State, payload: Customer): State => ({
 const getOrdersRequestReducer = (state: State, payload: FindAllOrderResponse): State => ({
 	...state,
 	orders: payload,
+})
+
+const setOrdersPageReducer = (state: State, payload: number) => ({
+	...state,
+	ordersPage: payload,
 })
 
 const createOrderReducer = (state: State, payload: Customer['id']): State => ({
@@ -175,4 +184,9 @@ const addWorkerRequestReducer = (state: State, payload: unknown): State => ({
 const getUsersRequestReducer = (state: State, payload: FindAllUserResponse): State => ({
 	...state,
 	users: payload,
+})
+
+const setUsersPageReducer = (state: State, payload: number) => ({
+	...state,
+	usersPage: payload,
 })

@@ -1,8 +1,6 @@
-import { useRouter } from 'next/router'
 import * as React from 'react'
 import * as action from '../app/actions'
 import { AppContext } from '../contexts/AppContext'
-// import { useHistory } from '../contexts/HistoryContext'
 import { AuthService, CustomersService } from '../services'
 import { LoginDto, RecoveryPasswordDto, RegisterDto } from '../types'
 

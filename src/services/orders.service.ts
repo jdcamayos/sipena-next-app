@@ -14,16 +14,19 @@ import {
 import { service } from './base.service'
 
 export class OrdersService {
-	async findAll() {
-		const { data } = await service.get<FindAllOrderResponse>(`/orders`)
+	async findAll(limit?: number, offset?: number) {
+		const url = `/orders?limit=${limit || 10}&offset=${offset || 0}`
+		const { data } = await service.get<FindAllOrderResponse>(url)
 		return data
 	}
-	async findAllByCustomer() {
-		const { data } = await service.get<FindAllOrderResponse>(`/orders/customers`)
+	async findAllByCustomer(limit?: number, offset?: number) {
+		const url = `/orders/customer?limit=${limit || 10}&offset=${offset || 0}`
+		const { data } = await service.get<FindAllOrderResponse>(url)
 		return data
 	}
-	async findAllByWorker() {
-		const { data } = await service.get<FindAllOrderResponse>(`/orders/workers`)
+	async findAllByWorker(limit?: number, offset?: number) {
+		const url = `/orders/workers?limit=${limit || 10}&offset=${offset || 0}`
+		const { data } = await service.get<FindAllOrderResponse>(url)
 		return data
 	}
 	async findOne(orderId: Order['id']) {

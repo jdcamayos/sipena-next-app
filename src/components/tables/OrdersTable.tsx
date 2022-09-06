@@ -55,21 +55,11 @@ function OrderRow(props: RowProps) {
 interface Props {}
 
 export default function OrdersTable(props: Props) {
-	const { orders, meta, loading } = useOrders()
-	// const [page, setPage] = React.useState(meta.page - 1)
-	// const [rowsPerPage, setRowsPerPage] = React.useState(meta.itemsPerPage)
+	const { orders, meta, loading, setPage, ordersPage } = useOrders()
 
-	// const handleChangePage = (event: unknown, newPage: number) => {
-	// 	console.log('newPage', newPage)
-	// 	// setPage(newPage)
-	// }
-
-	// const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-	// 	console.log('setRowsPerPage', +event.target.value)
-	// 	console.log('setPage', 1)
-	// 	// setRowsPerPage(+event.target.value)
-	// 	// setPage(1)
-	// }
+	const handleChangePage = (event: unknown, newPage: number) => {
+		setPage(newPage + 1)
+	}
 
 	return (
 		<Paper>
@@ -102,15 +92,14 @@ export default function OrdersTable(props: Props) {
 					</TableBody>
 				</Table>
 			</TableContainer>
-			{/* <TablePagination
-					rowsPerPageOptions={[10, 25, 100]}
+			<TablePagination
+					rowsPerPageOptions={[10]}
 					component='div'
 					count={meta.totalItems}
-					rowsPerPage={rowsPerPage}
-					page={page}
+					rowsPerPage={meta.itemsPerPage}
+					page={ordersPage - 1}
 					onPageChange={handleChangePage}
-					onRowsPerPageChange={handleChangeRowsPerPage}
-				/> */}
+				/>
 		</Paper>
 	)
 }

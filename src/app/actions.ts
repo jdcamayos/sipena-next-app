@@ -1,4 +1,18 @@
-import { Attachment, Auth, Comment, CreateContainerDto, CreateContainerItem, CreateOrderDto, Customer, FindAllOrderResponse, FindAllUserResponse, FindOneOrderResponse, Order, UpdateContainerDto, User } from "../types"
+import {
+	Attachment,
+	Auth,
+	Comment,
+	CreateContainerDto,
+	CreateContainerItem,
+	CreateOrderDto,
+	Customer,
+	FindAllOrderResponse,
+	FindAllUserResponse,
+	FindOneOrderResponse,
+	Order,
+	UpdateContainerDto,
+	User,
+} from '../types'
 
 export interface ActionType {
 	type: string
@@ -14,6 +28,7 @@ export const actions = {
 	getCustomerRequest: 'GET_CUSTOMER_REQUEST',
 	// Orders
 	getOrdersRequest: 'GET_ORDERS_REQUEST',
+	setOrdersPage: 'SET_ORDERS_PAGE',
 	// CreateOrder Form
 	createOrder: 'CREATE_ORDER',
 	setDate: 'SET_DATE',
@@ -28,7 +43,8 @@ export const actions = {
 	addCommentRequest: 'ADD_COMMENT_REQUEST',
 	addWorkerRequest: 'ADD_WORKER_REQUEST',
 	// Admin
-	getUsersRequest: 'GET_USER_REQUEST'
+	getUsersRequest: 'GET_USER_REQUEST',
+	setUsersPage: 'SET_USERS_PAGE',
 }
 
 // Auth
@@ -54,6 +70,10 @@ export const getOrdersRequest = (payload: FindAllOrderResponse) => ({
 	type: actions.getOrdersRequest,
 	payload,
 })
+export const setOrdersPage = (payload: number) => ({
+	type: actions.setOrdersPage,
+	payload,
+})
 // CreateOrder Form
 export const createOrder = (payload: Customer['id']) => ({
 	type: actions.createOrder,
@@ -61,7 +81,7 @@ export const createOrder = (payload: Customer['id']) => ({
 })
 export const setDate = (payload: string | Date) => ({
 	type: actions.setDate,
-	payload
+	payload,
 })
 export const addContainer = (payload: CreateContainerDto) => ({
 	type: actions.addContainer,
@@ -69,11 +89,11 @@ export const addContainer = (payload: CreateContainerDto) => ({
 })
 export const editContainer = (payload: UpdateContainerDto) => ({
 	type: actions.editContainer,
-	payload
+	payload,
 })
 export const removeContainer = (payload: CreateContainerItem['id']) => ({
 	type: actions.removeContainer,
-	payload
+	payload,
 })
 export const createOrderRequest = (payload: unknown) => ({
 	type: actions.createOrderRequest,
@@ -82,7 +102,7 @@ export const createOrderRequest = (payload: unknown) => ({
 // Order
 export const setOrderId = (payload: Order['id']) => ({
 	type: actions.setOrderId,
-	payload
+	payload,
 })
 export const getOrderRequest = (payload: FindOneOrderResponse) => ({
 	type: actions.getOrderRequest,
@@ -103,5 +123,9 @@ export const addWorkerRequest = (payload: unknown) => ({
 // Admin
 export const getUsersRequest = (payload: FindAllUserResponse) => ({
 	type: actions.getUsersRequest,
+	payload,
+})
+export const setUsersPage = (payload: number) => ({
+	type: actions.setUsersPage,
 	payload,
 })

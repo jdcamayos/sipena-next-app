@@ -7,6 +7,7 @@ export const initialState: State = {
 	},
 	user: null,
 	customer: null,
+	ordersPage: 1,
 	orders: {
 		data: [],
 		meta: {
@@ -34,6 +35,7 @@ export const initialState: State = {
 		containers: [],
 		workers: [],
 	},
+	usersPage: 1,
 	users: {
 		data: [],
 		meta: {
@@ -43,6 +45,7 @@ export const initialState: State = {
 			totalItems: 0,
 		},
 	},
+	workersPage: 1,
 	workers: {
 		data: [],
 		meta: {
