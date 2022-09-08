@@ -8,13 +8,7 @@ import Typography from '@mui/material/Typography'
 import { Worker } from '../../types'
 
 interface WorkerItemProps {
-  worker: {
-		assignedBy: string
-		user: {
-			id: string
-			email: string
-		}
-	}
+  worker: Worker
 }
 
 const WorkerItem = (props: WorkerItemProps) => {
@@ -37,13 +31,7 @@ const WorkerItem = (props: WorkerItemProps) => {
 }
 
 interface Props {
-  workers: {
-		assignedBy: string
-		user: {
-			id: string
-			email: string
-		}
-	}[]
+  workers: Worker[]
 }
 
 export default function WorkerBox(props: Props) {
@@ -52,7 +40,7 @@ export default function WorkerBox(props: Props) {
     <Paper sx={{ padding: 2, marginTop: 2 }}>
       <Grid container spacing={1}>
         {workers.map(wo => (
-          <WorkerItem key={wo.user.id} worker={wo} />
+          <WorkerItem key={wo.id} worker={wo} />
         ))}
       </Grid>
     </Paper>

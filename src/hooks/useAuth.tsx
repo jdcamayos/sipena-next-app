@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios'
 import * as React from 'react'
 import * as action from '../app/actions'
 import { AppContext } from '../contexts/AppContext'

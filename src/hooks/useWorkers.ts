@@ -7,6 +7,7 @@ export default function useWorkers() {
   const [loading, setLoading] = React.useState(false)
   const { state, dispatch } = React.useContext(AppContext)
 	const { data: workers, meta } = state.workers
+	const { workersPage } = state
 
 	const usersService = new UsersService()
 
@@ -20,8 +21,9 @@ export default function useWorkers() {
 	const fetchWorkers = async () => {
 		try {
 			setLoading(true)
-			const response = await usersService.findAll()
-			dispatch(action.getUsersRequest(response))
+			const response = await usersService.findAllWorkers()
+			console.log(response.data)
+			dispatch(action.getWorkersRequest(response))
 			setLoading(false)
 		} catch (error) {
 			setLoading(false)

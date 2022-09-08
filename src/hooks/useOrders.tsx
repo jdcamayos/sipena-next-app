@@ -31,15 +31,21 @@ export default function useOrders() {
 			const limit = 10
 			if (state.user?.role === 'admin') {
 				const response = await ordersService.findAll(limit, offset)
-				dispatch(action.getOrdersRequest(response))
+				if (response.data) {
+					dispatch(action.getOrdersRequest(response))
+				}
 			}
 			if (state.user?.role === 'customer') {
 				const response = await ordersService.findAllByCustomer(limit, offset)
-				dispatch(action.getOrdersRequest(response))
+				if (response.data) {
+					dispatch(action.getOrdersRequest(response))
+				}
 			}
 			if (state.user?.role === 'worker') {
 				const response = await ordersService.findAllByWorker(limit, offset)
-				dispatch(action.getOrdersRequest(response))
+				if (response.data) {
+					dispatch(action.getOrdersRequest(response))
+				}
 			}
 			setLoading(false)
 		} catch (error) {
@@ -52,5 +58,5 @@ export default function useOrders() {
 		dispatch(action.setOrdersPage(newPage))
 	}
 
-	return { loading, orders, meta, setPage, ordersPage }
+	return { loading, orders, meta, setPage, ordersPage, state }
 }

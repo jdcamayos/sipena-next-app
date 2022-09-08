@@ -25,7 +25,7 @@ const CommentItem = (props: CommentItemProps) => {
 						<Grid container>
 							<Grid item xs={12}>
 								<Typography sx={{ width: '100%', fontWeight: 'bold', textOverflow: 'ellipsis' }}>
-									{co.userId}
+									{co.author.email}
 								</Typography>
 							</Grid>
 							<Grid item xs={12}>

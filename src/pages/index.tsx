@@ -2,6 +2,7 @@ import { NextPage } from 'next'
 import * as React from 'react'
 // MUI Styles
 import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
 // Components
 import CustomerForm from '../components/forms/CustomerForm'
 import DashboardLayout from '../components/dashboard/DashboardLayout'
@@ -30,9 +31,16 @@ export default function Home(props: NextPage) {
 			{/* For Customers */}
 			{state.user?.role === 'customer' && state.customer && <OrdersTable />}
 			{state.user?.role === 'customer' && !state.customer && (
-				<Grid item xs={12} sx={{ display: 'grid', placeContent: 'center', py: 2 }}>
-					<CustomerForm />
-				</Grid>
+				<>
+					<Grid item xs={12} sx={{ display: 'grid', placeContent: 'center', py: 2 }}>
+						<Typography>
+							Welcome to Sipnea Orders App, you need to create your customer profile, to create orders.
+						</Typography>
+					</Grid>
+					<Grid item xs={12} sx={{ display: 'grid', placeContent: 'center', py: 2 }}>
+						<CustomerForm />
+					</Grid>
+				</>
 			)}
 		</DashboardLayout>
 	)

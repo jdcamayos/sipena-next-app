@@ -13,11 +13,12 @@ import PasswordInput from '../misc/PasswordInput'
 // Hooks
 import useAuth from '../../hooks/useAuth'
 import { useRouter } from 'next/router'
+import { registerSchema } from '../../schemas'
 
 interface Props {}
 
 export default function RegisterForm(props: Props) {
-	const { loading, register } = useAuth()
+	const { loading, register, state } = useAuth()
 	const router = useRouter()
 	const formik = useFormik({
 		initialValues: {
@@ -25,18 +26,21 @@ export default function RegisterForm(props: Props) {
 			password: '',
 		},
 		onSubmit: async values => {
-			// console.log(values)
 			await register(values)
-			router.replace('/')
 		},
-		// validationSchema: signUpSchema,
+		validationSchema: registerSchema,
 	})
+
+	React.useEffect(() => {
+		if (state.auth.isAuth) {
+			router.replace('/')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [state.auth.isAuth])
 
 	return (
 		<Box component='form' noValidate onSubmit={formik.handleSubmit} sx={{ mt: 2 }}>
 			<Grid container>
-				<Grid item xs={12} sm={6}>
-				</Grid>
 				<Grid item xs={12}>
 					<TextField
 						autoComplete='email'
@@ -49,6 +53,8 @@ export default function RegisterForm(props: Props) {
 						required
 						type='email'
 						value={formik.values.email}
+						error={!!formik.errors.email}
+						helperText={formik.errors.email}
 					/>
 				</Grid>
 				<Grid item xs={12}>

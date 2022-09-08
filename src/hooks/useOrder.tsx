@@ -1,5 +1,5 @@
 import { AppContext } from '../contexts/AppContext'
-import { AddCommentDto, Order } from '../types'
+import { AddCommentDto, AddWorkerDto, Order } from '../types'
 import { OrdersService } from '../services'
 import * as action from '../app/actions'
 import * as React from 'react'
@@ -30,7 +30,7 @@ export default function useOrder() {
   const fetchOrder = async (orderId: Order['id']) => {
     try {
       setLoading(true)
-      const order = await ordersService.findOne(actualOrderId)
+      const order = await ordersService.findOne(orderId)
       dispatch(action.getOrderRequest(order))
       setLoading(false)
     } catch (error) {
@@ -42,7 +42,6 @@ export default function useOrder() {
   const addAttachment = async (addAttachmentDto: FormData) => {
     try {
       setLoading(true)
-      // Service
       const attachment = await ordersService.addAttachmentToOrder(order.id, addAttachmentDto)
       dispatch(action.addAttachmentRequest(attachment))
       setLoading(false)
@@ -55,7 +54,6 @@ export default function useOrder() {
   const addComment = async (addCommentDto: AddCommentDto) => {
     try {
       setLoading(true)
-      // Service
       const comment = await ordersService.addCommentToOrder(order.id, addCommentDto)
       dispatch(action.addCommentRequest(comment))
       setLoading(false)
@@ -65,12 +63,12 @@ export default function useOrder() {
     }
   }
 
-  const addWorker = async () => {
+  const addWorker = async (addWorkerDto: AddWorkerDto) => {
     try {
       setLoading(true)
-      // Service
-      // const worker = await ordersService.addWorkerToOrder(order.id, addWorkerDto)
-      dispatch(action.addWorkerRequest({}))
+      const worker = await ordersService.addWorkerToOrder(order.id, addWorkerDto)
+      console.log(worker)
+      dispatch(action.addWorkerRequest(worker))
       setLoading(false)
     } catch (error) {
       setLoading(false)

@@ -10,6 +10,7 @@ import {
 	FindAllOrderResponse,
 	FindOneOrderResponse,
 	Order,
+	Worker,
 } from '../types'
 import { service } from './base.service'
 
@@ -20,7 +21,7 @@ export class OrdersService {
 		return data
 	}
 	async findAllByCustomer(limit?: number, offset?: number) {
-		const url = `/orders/customer?limit=${limit || 10}&offset=${offset || 0}`
+		const url = `/orders/customers?limit=${limit || 10}&offset=${offset || 0}`
 		const { data } = await service.get<FindAllOrderResponse>(url)
 		return data
 	}
@@ -47,7 +48,7 @@ export class OrdersService {
 		return data
 	}
 	async addWorkerToOrder(orderId: Order['id'], addWorkerDto: AddWorkerDto) {
-		const { data } = await service.post<AddWorkerDto>(`/orders/${orderId}/workers`, addWorkerDto)
+		const { data } = await service.post<Worker>(`/orders/${orderId}/workers`, addWorkerDto)
 		return data
 	}
 }

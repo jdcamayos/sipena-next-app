@@ -1,8 +1,9 @@
 import axios, { AxiosError } from 'axios'
+import { config } from '../config'
 import { ErrorResponseBase } from '../types'
 
 export const service = axios.create({
-	baseURL: 'http://localhost:4000',
+	baseURL: config.backendUrl,
 	timeout: 10000,
 })
 

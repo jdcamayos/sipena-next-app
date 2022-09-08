@@ -1,4 +1,5 @@
 import {
+	AdminUser,
 	Attachment,
 	Auth,
 	Comment,
@@ -45,6 +46,9 @@ export const actions = {
 	// Admin
 	getUsersRequest: 'GET_USER_REQUEST',
 	setUsersPage: 'SET_USERS_PAGE',
+	updateUserRequest: 'UPDATE_USER_REQUEST',
+	// Workers
+	getWorkersRequest: 'GET_WORKERS_REQUEST'
 }
 
 // Auth
@@ -127,5 +131,14 @@ export const getUsersRequest = (payload: FindAllUserResponse) => ({
 })
 export const setUsersPage = (payload: number) => ({
 	type: actions.setUsersPage,
+	payload,
+})
+export const updateUserRequest = (payload: AdminUser) => ({
+	type: actions.updateUserRequest,
+	payload,
+})
+// Workers
+export const getWorkersRequest = (payload: FindAllUserResponse) => ({
+	type: actions.getWorkersRequest,
 	payload,
 })

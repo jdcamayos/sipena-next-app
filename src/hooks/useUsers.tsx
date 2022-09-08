@@ -1,5 +1,5 @@
 import { AppContext } from '../contexts/AppContext'
-import { UpdateAdminUserDto } from '../types'
+import { AddUserImageDto, UpdateAdminUserDto } from '../types'
 import { UsersService } from '../services'
 import * as action from '../app/actions'
 import * as React from 'react'
@@ -38,10 +38,24 @@ export default function useUsers() {
 		}
 	}
 
-	const updateUser = async (updateAdminUserDto: UpdateAdminUserDto) => {
+	const addUserImage = async (userId: string, addUserImageDto: AddUserImageDto) => {
 		try {
 			setLoading(true)
-			// Service
+			const response = await usersService.addImage(userId, addUserImageDto)
+
+			// dispatch(action.updateUserRequest(user))
+			setLoading(false)
+		} catch (error) {
+			setLoading(false)
+		}
+	}
+
+	const updateUser = async (userId: string, updateAdminUserDto: UpdateAdminUserDto) => {
+		try {
+			setLoading(true)
+			const user = await usersService.update(userId, updateAdminUserDto)
+			console.log('Response', user)
+			dispatch(action.updateUserRequest(user))
 			setLoading(false)
 		} catch (error) {
 			setLoading(false)
@@ -53,5 +67,5 @@ export default function useUsers() {
 		dispatch(action.setUsersPage(newPage))
 	}
 
-	return { loading, users, meta, setPage, updateUser, usersPage }
+	return { loading, users, meta, setPage, addUserImage, updateUser, usersPage }
 }

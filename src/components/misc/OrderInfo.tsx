@@ -16,11 +16,13 @@ import WorkerBox from './WorkerBox'
 import WorkerForm from '../forms/WorkerForm'
 // Utils
 import { dateFormat } from '../../utils/dates'
+import useAuth from '../../hooks/useAuth'
 
 interface Props {}
 
 export default function OrderInfo(props: Props) {
 	const { order, loading } = useOrder()
+	const { state } = useAuth()
 
 	if (loading)
 		return (
@@ -48,7 +50,8 @@ export default function OrderInfo(props: Props) {
 					<Typography variant='h6' fontWeight='bold'>
 						Attachments
 					</Typography>
-					<AttachmentForm />
+					{state.user?.role === 'admin' && <AttachmentForm />}
+					{state.user?.role === 'worker' && <AttachmentForm />}
 				</Grid>
 				<Grid item xs={12}>
 					<AttachmentBox attachments={order.attachments} />
@@ -59,7 +62,7 @@ export default function OrderInfo(props: Props) {
 					<Typography variant='h6' fontWeight='bold'>
 						Workers
 					</Typography>
-					<WorkerForm />
+					{state.user?.role === 'admin' && <WorkerForm />}
 				</Grid>
 				<Grid item xs={12}>
 					<WorkerBox workers={order.workers} />

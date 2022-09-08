@@ -9,7 +9,7 @@ interface DefaultValue {
 	dispatch: React.Dispatch<ActionType>
 }
 
-const defaultValue = {
+const defaultValue: DefaultValue = {
   state: initialState,
   dispatch: () => null
 }

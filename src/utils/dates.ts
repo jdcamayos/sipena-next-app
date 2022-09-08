@@ -7,5 +7,5 @@ export const dateRegistered = (date: string | Date) => {
 }
 
 export const dateFormat = (date: string | Date) => {
-  return format(new Date(date), 'MM/dd/yy - HH:MM')
+  return format(new Date(date), 'd LLL yyyy')
 }

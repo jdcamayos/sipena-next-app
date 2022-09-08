@@ -32,7 +32,7 @@ export default function AuthLayout(props: Props) {
 				<Box
 					sx={{ height: 70, width: 300, position: 'relative' }}
 				>
-					<Image src='/assets/logoColorHorizontal.png' alt='Logo Sipena' layout='fill' objectFit='contain' />
+					<Image src='/assets/logoColorHorizontal.png' alt='Logo Sipena' layout='fill' objectFit='contain' priority />
 				</Box>
 				{props.children}
 			</Box>

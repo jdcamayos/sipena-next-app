@@ -1,4 +1,5 @@
 import { useFormik } from 'formik'
+import { useRouter } from 'next/router'
 import * as React from 'react'
 import LinkRouter from 'next/link'
 // MUI Styles
@@ -14,25 +15,29 @@ import PasswordInput from '../misc/PasswordInput'
 import useAuth from '../../hooks/useAuth'
 // Schemas
 import { loginSchema } from '../../schemas'
-import { useRouter } from 'next/router'
 
 interface Props {}
 
 export default function LoginForm(props: Props) {
-	const { loading, login } = useAuth()
+	const { loading, login, state } = useAuth()
 	const router = useRouter()
 	const formik = useFormik({
 		initialValues: {
 			email: '',
 			password: '',
 		},
-		onSubmit: async values => {
-			// console.log(values)
-			await login(values)
-			router.replace('/')
+		onSubmit: values => {
+			login(values)
 		},
 		validationSchema: loginSchema,
 	})
+
+	React.useEffect(() => {
+		if (state.auth.isAuth) {
+			router.replace('/')
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [state.auth.isAuth])
 
 	return (
 		<Box component='form' onSubmit={formik.handleSubmit} noValidate sx={{ mt: 2 }}>
@@ -47,6 +52,8 @@ export default function LoginForm(props: Props) {
 				required
 				type='email'
 				value={formik.values.email}
+				error={!!formik.errors.email}
+				helperText={formik.errors.email}
 			/>
 			<PasswordInput
 				fullWidth

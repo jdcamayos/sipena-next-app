@@ -1,5 +1,6 @@
 import { actions, ActionType } from './actions'
 import {
+	AdminUser,
 	Attachment,
 	Auth,
 	Comment,
@@ -12,6 +13,7 @@ import {
 	Order,
 	State,
 	User,
+	Worker,
 } from '../types'
 import { initialState } from './initialState'
 
@@ -55,6 +57,10 @@ export const reducer = (state: State, action: ActionType): State => {
 			return getUsersRequestReducer(state, action.payload)
 		case actions.setUsersPage:
 			return setUsersPageReducer(state, action.payload)
+		case actions.updateUserRequest:
+			return updateUserRequestReducer(state, action.payload)
+		case actions.getWorkersRequest:
+			return getWorkersRequestReducer(state, action.payload)
 		default:
 			return state
 	}
@@ -177,8 +183,12 @@ const addCommentRequestReducer = (state: State, payload: Comment): State => ({
 	},
 })
 
-const addWorkerRequestReducer = (state: State, payload: unknown): State => ({
+const addWorkerRequestReducer = (state: State, payload: Worker): State => ({
 	...state,
+	order: {
+		...state.order,
+		workers: [...state.order.workers, payload].sort((a, b) => a.user.email.localeCompare(b.user.email)),
+	},
 })
 
 const getUsersRequestReducer = (state: State, payload: FindAllUserResponse): State => ({
@@ -189,4 +199,18 @@ const getUsersRequestReducer = (state: State, payload: FindAllUserResponse): Sta
 const setUsersPageReducer = (state: State, payload: number) => ({
 	...state,
 	usersPage: payload,
+})
+const updateUserRequestReducer = (state: State, payload: AdminUser) => ({
+	...state,
+	users: {
+		...state.users,
+		data: [...state.users.data.filter(us => us.id !== payload.id), payload].sort((a, b) =>
+			a.email.localeCompare(b.email)
+		),
+	},
+})
+// Workers
+const getWorkersRequestReducer = (state: State, payload: FindAllUserResponse): State => ({
+	...state,
+	workers: payload,
 })

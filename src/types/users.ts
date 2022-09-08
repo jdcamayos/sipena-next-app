@@ -10,11 +10,16 @@ export interface AdminUser extends User {
 }
 
 // Dto
-export interface UpdateAdminUserDto extends Partial<AdminUser> {}
+export interface UpdateAdminUserDto {
+	role: 'admin' | 'customer' | 'worker'
+	blocked: boolean
+}
 
 export interface ChangeMyPasswordDto {
 	password: string
 }
+
+export interface AddUserImageDto extends FormData {}
 
 // Responses
 export interface FindAllUserResponse {
