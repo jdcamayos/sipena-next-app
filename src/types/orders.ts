@@ -15,6 +15,8 @@ export interface OrderItem extends Order {
 		companyName: string,
 		user: {
 			email: string
+			role: 'admin' | 'customer' | 'worker'
+			image: string
 		}
 	}
 	_count: {

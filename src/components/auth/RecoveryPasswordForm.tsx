@@ -12,6 +12,7 @@ import PasswordInput from '../misc/PasswordInput'
 // Hooks
 import useAuth from '../../hooks/useAuth'
 import { useRouter } from 'next/router'
+import { recoveryPasswordSchema } from '../../schemas/recovery-password.schema'
 
 interface Props {
 	recoveryToken: string
@@ -29,7 +30,7 @@ export default function RecoveryPasswordForm(props: Props) {
 			await recoveryPassword(values, recoveryToken)
 			router.replace('/')
 		},
-		// validationSchema: recoveryPasswordSchema,
+		validationSchema: recoveryPasswordSchema,
 	})
 
 	return (

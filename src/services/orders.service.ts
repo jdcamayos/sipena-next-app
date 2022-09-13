@@ -51,4 +51,8 @@ export class OrdersService {
 		const { data } = await service.post<Worker>(`/orders/${orderId}/workers`, addWorkerDto)
 		return data
 	}
+	async finishOrder(orderId: Order['id']) {
+		const { data } = await service.get<Order>(`/orders/${orderId}/finish`)
+		return data
+	}
 }

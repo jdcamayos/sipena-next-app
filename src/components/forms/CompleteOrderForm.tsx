@@ -11,7 +11,12 @@ import Stack from '@mui/material/Stack'
 // Icons
 import TaskIcon from '@mui/icons-material/Task'
 
-export default function CompleteOrderForm() {
+interface Props {
+	finishOrder: () => void
+}
+
+export default function CompleteOrderForm(props: Props) {
+	const { finishOrder } = props
 	const [open, setOpen] = React.useState(false)
 
 	const handleClickOpen = () => {
@@ -53,10 +58,10 @@ export default function CompleteOrderForm() {
 						workers.`}
 					</Typography>
 					<Stack  direction="row" spacing={2} justifyContent='space-between'>
-						<Button fullWidth variant='outlined' color='error'>
+						<Button fullWidth variant='outlined' color='error' onClick={() => finishOrder()}>
 							Yes
 						</Button>
-						<Button fullWidth variant='contained' color='warning'>
+						<Button fullWidth variant='contained' color='warning' onClick={handleClose}>
 							No
 						</Button>
 					</Stack>

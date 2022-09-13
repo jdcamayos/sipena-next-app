@@ -12,6 +12,7 @@ import AuthButton from './AuthButton'
 // Hooks
 import useAuth from '../../hooks/useAuth'
 import { useRouter } from 'next/router'
+import { forgotPasswordSchema } from '../../schemas/forgot-password.schema'
 
 interface Props {}
 
@@ -26,7 +27,7 @@ export default function ForgotPasswordForm(props: Props) {
 			await forgotPassword(values.email)
 			router.replace('/login')
 		},
-		// validationSchema: forgotPasswordSchema,
+		validationSchema: forgotPasswordSchema,
 	})
 	return (
 		<Box component='form' onSubmit={formik.handleSubmit} noValidate sx={{ mt: 2 }}>
@@ -41,6 +42,8 @@ export default function ForgotPasswordForm(props: Props) {
 				required
 				type='email'
 				value={formik.values.email}
+				error={!!formik.errors.email}
+				helperText={formik.errors.email}
 			/>
 			<AuthButton loading={loading} content='Recovery password' />
 			<Grid container spacing={2}>

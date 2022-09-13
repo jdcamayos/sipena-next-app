@@ -21,7 +21,7 @@ import useAuth from '../../hooks/useAuth'
 export default function Order(props: NextPage) {
 	const { loading: authLoading, state } = useAuth()
 	const router = useRouter()
-	const { setOrderId, order, loading } = useOrder()
+	const { setOrderId, order, loading, finishOrder } = useOrder()
 	const orderId = Array.isArray(router.query.orderId) ? router.query.orderId[0] : router.query.orderId
 
 	React.useEffect(() => {
@@ -59,25 +59,7 @@ export default function Order(props: NextPage) {
 						Order Details
 					</Typography>
 					{state.user?.role !== 'customer' && !order.status && (
-						// <Button
-						// 	variant='contained'
-						// 	sx={{
-						// 		position: 'absolute',
-						// 		right: 1,
-						// 		top: 1,
-						// 		textTransform: 'none',
-						// 		color: 'black',
-						// 		backgroundColor: theme => theme.palette.warning.main,
-						// 		'&:hover': {
-						// 			backgroundColor: theme => theme.palette.error.main,
-						// 			color: 'white',
-						// 		},
-						// 	}}
-						// 	endIcon={<TaskIcon />}
-						// >
-						// 	Close Order
-						// </Button>
-						<CompleteOrderForm />
+						<CompleteOrderForm finishOrder={finishOrder} />
 					)}
 				</Grid>
 				{loading && (

@@ -6,6 +6,8 @@ export interface Comment extends Base {
 	userId: string
 	author: {
 		email: string
+		role: 'admin' | 'customer' | 'worker'
+		image: string
 	}
 }
 

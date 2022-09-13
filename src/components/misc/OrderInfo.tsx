@@ -84,8 +84,8 @@ export default function OrderInfo(props: Props) {
 					<Typography variant='h6' fontWeight='bold'>
 						Attachments
 					</Typography>
-					{state.user?.role === 'admin' && <AttachmentForm />}
-					{state.user?.role === 'worker' && <AttachmentForm />}
+					{state.user?.role === 'admin' && !order.status && <AttachmentForm />}
+					{state.user?.role === 'worker' && !order.status && <AttachmentForm />}
 				</Grid>
 				<Grid item xs={12}>
 					<AttachmentBox attachments={order.attachments} />
@@ -96,7 +96,7 @@ export default function OrderInfo(props: Props) {
 					<Typography variant='h6' fontWeight='bold'>
 						Workers
 					</Typography>
-					{state.user?.role === 'admin' && <WorkerForm />}
+					{state.user?.role === 'admin' && !order.status && <WorkerForm />}
 				</Grid>
 				<Grid item xs={12}>
 					<WorkerBox workers={order.workers} />
@@ -107,7 +107,7 @@ export default function OrderInfo(props: Props) {
 					<Typography variant='h6' fontWeight='bold'>
 						Comments
 					</Typography>
-					<CommentForm />
+					{!order.status && <CommentForm />}
 				</Grid>
 				<Grid item xs={12}>
 					<CommentBox comments={order.comments} />

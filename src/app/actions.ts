@@ -43,6 +43,7 @@ export const actions = {
 	addAttachmentRequest: 'ADD_ATTACHMENT_REQUEST',
 	addCommentRequest: 'ADD_COMMENT_REQUEST',
 	addWorkerRequest: 'ADD_WORKER_REQUEST',
+	setOrderStatusRequest: 'SET_ORDER_STATUS_REQUEST',
 	// Admin
 	getUsersRequest: 'GET_USER_REQUEST',
 	setUsersPage: 'SET_USERS_PAGE',
@@ -122,6 +123,10 @@ export const addCommentRequest = (payload: Comment) => ({
 })
 export const addWorkerRequest = (payload: unknown) => ({
 	type: actions.addWorkerRequest,
+	payload,
+})
+export const setOrderStatusRequest = (payload: unknown) => ({
+	type: actions.setOrderStatusRequest,
 	payload,
 })
 // Admin

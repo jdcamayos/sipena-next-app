@@ -18,7 +18,7 @@ import { registerSchema } from '../../schemas'
 interface Props {}
 
 export default function RegisterForm(props: Props) {
-	const { loading, register, state } = useAuth()
+	const { loading, register, state, error } = useAuth()
 	const router = useRouter()
 	const formik = useFormik({
 		initialValues: {
@@ -64,7 +64,11 @@ export default function RegisterForm(props: Props) {
 						inputValue={formik.values.password}
 						margin='normal'
 						required
+						customError={formik.errors.password}
 					/>
+				</Grid>
+				<Grid item xs={12}>
+				{!!error.length && <Typography align="center">{error[0]}</Typography>}
 				</Grid>
 			</Grid>
 			<AuthButton content='Register' loading={loading} />

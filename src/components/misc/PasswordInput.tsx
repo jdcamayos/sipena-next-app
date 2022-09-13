@@ -1,5 +1,6 @@
 import * as React from 'react'
 import FormControl, { FormControlProps } from '@mui/material/FormControl'
+import FormHelperText from '@mui/material/FormHelperText'
 import InputLabel from '@mui/material/InputLabel'
 import OutlinedInput from '@mui/material/OutlinedInput'
 import IconButton from '@mui/material/IconButton'
@@ -10,10 +11,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 interface Props extends FormControlProps {
   inputValue?: string
   inputOnChange?: React.ChangeEventHandler<HTMLInputElement>
+	customError?: string
 }
 
 export default function PasswordInput(props: Props) {
-  const { inputValue, inputOnChange, ...rest  } = props
+  const { inputValue, inputOnChange, customError, ...rest  } = props
   const [showPassword, setShowPassword] = React.useState(false)
   const id = React.useId()
 
@@ -26,7 +28,7 @@ export default function PasswordInput(props: Props) {
 	}
 
 	return (
-		<FormControl { ...rest }>
+		<FormControl error={!!customError} { ...rest }>
 			<InputLabel htmlFor={id}>Password</InputLabel>
 			<OutlinedInput
 				id={id}
@@ -49,6 +51,7 @@ export default function PasswordInput(props: Props) {
 					</InputAdornment>
 				}
 			/>
+			{!!customError && <FormHelperText>{customError}</FormHelperText>}
 		</FormControl>
 	)
 }

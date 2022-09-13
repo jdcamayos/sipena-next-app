@@ -53,6 +53,8 @@ export const reducer = (state: State, action: ActionType): State => {
 			return addCommentRequestReducer(state, action.payload)
 		case actions.addWorkerRequest:
 			return addWorkerRequestReducer(state, action.payload)
+		case actions.setOrderStatusRequest:
+			return setOrderStatusRequestReducer(state, action.payload)
 		case actions.getUsersRequest:
 			return getUsersRequestReducer(state, action.payload)
 		case actions.setUsersPage:
@@ -190,6 +192,15 @@ const addWorkerRequestReducer = (state: State, payload: Worker): State => ({
 		workers: [...state.order.workers, payload].sort((a, b) => a.user.email.localeCompare(b.user.email)),
 	},
 })
+
+const setOrderStatusRequestReducer = (state: State, payload: boolean): State => ({
+	...state,
+	order: {
+		...state.order,
+		status: payload,
+	},
+})
+
 
 const getUsersRequestReducer = (state: State, payload: FindAllUserResponse): State => ({
 	...state,

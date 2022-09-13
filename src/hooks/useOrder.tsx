@@ -80,5 +80,16 @@ export default function useOrder() {
 		}
 	}
 
-	return { order, loading, setOrderId, addAttachment, addComment, addWorker }
+	const finishOrder = async () => {
+		try {
+			setLoading(true)
+			const { status } = await ordersService.finishOrder(order.id)
+			dispatch(action.setOrderStatusRequest(status))
+			setLoading(false)
+		} catch (error) {
+			setLoading(false)
+		}
+	}
+
+	return { order, loading, setOrderId, addAttachment, addComment, addWorker, finishOrder }
 }

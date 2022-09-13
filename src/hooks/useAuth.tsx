@@ -15,12 +15,18 @@ export default function useAuth() {
 
 	// Initial fetch
 	React.useEffect(() => {
-		if (!state.auth.isAuth) {
-			const token = window.localStorage.getItem('access_token')
-			if (!!token) {
-				getMe(token)
+		const refreshSession = async () => {
+			if (!state.auth.isAuth) {
+				const token = window.localStorage.getItem('access_token')
+				if (!!token) {
+					await getMe(token)
+				}
 			}
 		}
+		refreshSession().catch(error => {
+			console.log(error)
+			window.localStorage.removeItem('access_token')
+		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
@@ -29,6 +35,7 @@ export default function useAuth() {
 			setLoading(true)
 			dispatch(action.loginRequest(token))
 			const user = await authService.me()
+			console.log(user)
 			dispatch(action.getMeRequest(user))
 			if (user.role === 'customer') {
 				const customer = await customersService.findMe()
@@ -36,6 +43,7 @@ export default function useAuth() {
 			}
 			setLoading(false)
 		} catch (error) {
+			// ! ToDo: When de the token is expired, remove token
 			window.localStorage.removeItem('access_token')
 			setLoading(false)
 			console.log(error)
@@ -49,9 +57,12 @@ export default function useAuth() {
 			window.localStorage.setItem('access_token', access_token)
 			await getMe(access_token)
 			setLoading(false)
-		} catch (error) {
+		} catch (error: any) {
 			setLoading(false)
 			console.log(error)
+			if (error.message) {
+				Array.isArray(error.message) ? setError(error.message) : setError([error.message])
+			}
 		}
 	}
 
@@ -62,9 +73,12 @@ export default function useAuth() {
 			window.localStorage.setItem('access_token', access_token)
 			await getMe(access_token)
 			setLoading(false)
-		} catch (error) {
+		} catch (error: any) {
 			setLoading(false)
 			console.log(error)
+			if (error.message) {
+				Array.isArray(error.message) ? setError(error.message) : setError([error.message])
+			}
 		}
 	}
 
@@ -73,9 +87,12 @@ export default function useAuth() {
 			setLoading(true)
 			const res = await authService.forgotPassword(email)
 			setLoading(false)
-		} catch (error) {
+		} catch (error: any) {
 			setLoading(false)
 			console.log(error)
+			if (error.message) {
+				Array.isArray(error.message) ? setError(error.message) : setError([error.message])
+			}
 		}
 	}
 
@@ -83,11 +100,15 @@ export default function useAuth() {
 		try {
 			setLoading(true)
 			const { access_token } = await authService.recoveryPassword(recoveryPassworDto, token)
+			window.localStorage.setItem('access_token', access_token)
 			await getMe(access_token)
 			setLoading(false)
-		} catch (error) {
+		} catch (error: any) {
 			setLoading(false)
 			console.log(error)
+			if (error.message) {
+				Array.isArray(error.message) ? setError(error.message) : setError([error.message])
+			}
 		}
 	}
 

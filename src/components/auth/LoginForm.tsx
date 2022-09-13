@@ -19,7 +19,7 @@ import { loginSchema } from '../../schemas'
 interface Props {}
 
 export default function LoginForm(props: Props) {
-	const { loading, login, state } = useAuth()
+	const { loading, login, state, error } = useAuth()
 	const router = useRouter()
 	const formik = useFormik({
 		initialValues: {
@@ -62,6 +62,7 @@ export default function LoginForm(props: Props) {
 				margin='normal'
 				required
 			/>
+			{!!error.length && <Typography align="center">{error[0]}</Typography>}
 			<AuthButton loading={loading} content='Login' />
 			<Grid container spacing={2}>
 				<Grid item xs={12} md={6}>

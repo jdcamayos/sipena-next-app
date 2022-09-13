@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography'
 import { Comment } from '../../types'
 // Utils
 import { dateRegistered } from '../../utils/dates'
+import { config } from '../../config'
+import { colorRole } from '../../utils/color-role'
 
 interface CommentItemProps {
 	comment: Comment
@@ -20,7 +22,19 @@ const CommentItem = (props: CommentItemProps) => {
 		<Grid item xs={12}>
 			<Paper sx={{ padding: 2 }}>
 				<Box sx={{ display: 'flex', alignItems: 'center' }}>
-					<Avatar>{co.userId.split('')[0]}</Avatar>
+					<Avatar
+						src={`${config.filesUrl}/${co.author.image}`}
+						sx={{
+							width: { xs: 40, md: 50 },
+							height: { xs: 40, md: 50 },
+							textAlign: 'center',
+							backgroundColor: co.author.role && colorRole[co.author.role].background,
+							color: 'black',
+							border: `1px solid ${(co.author.role && colorRole[co.author.role].main) || 'grey'}`,
+						}}
+					>
+						{co.userId.split('')[0].toUpperCase()}
+					</Avatar>
 					<Box sx={{ marginLeft: 2, overflow: 'hidden' }}>
 						<Grid container>
 							<Grid item xs={12}>
@@ -34,7 +48,7 @@ const CommentItem = (props: CommentItemProps) => {
 								</Typography>
 							</Grid>
 						</Grid>
-						<Typography sx={{  width: '100%', wordBreak: 'break-word' }}>{co.content}</Typography>
+						<Typography sx={{ width: '100%', wordBreak: 'break-word' }}>{co.content}</Typography>
 					</Box>
 				</Box>
 			</Paper>
@@ -51,7 +65,11 @@ export default function CommentBox(props: Props) {
 	return (
 		<Paper sx={{ padding: 2, marginTop: 2 }}>
 			<Grid container spacing={2}>
-				{!comments.length && (<Typography align="center" sx={{ width: "100%" }}>No comments yet</Typography>)}
+				{!comments.length && (
+					<Typography align='center' sx={{ width: '100%' }}>
+						No comments yet
+					</Typography>
+				)}
 				{comments.map(co => (
 					<CommentItem key={co.id} comment={co} />
 				))}
