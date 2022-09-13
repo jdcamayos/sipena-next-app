@@ -51,6 +51,7 @@ export default function CommentBox(props: Props) {
 	return (
 		<Paper sx={{ padding: 2, marginTop: 2 }}>
 			<Grid container spacing={2}>
+				{!comments.length && (<Typography align="center" sx={{ width: "100%" }}>No comments yet</Typography>)}
 				{comments.map(co => (
 					<CommentItem key={co.id} comment={co} />
 				))}

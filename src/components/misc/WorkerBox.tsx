@@ -39,6 +39,7 @@ export default function WorkerBox(props: Props) {
   return (
     <Paper sx={{ padding: 2, marginTop: 2 }}>
       <Grid container spacing={1}>
+        {!workers.length && (<Typography align="center" sx={{ width: "100%" }}>No workers assigned yet.</Typography>)}
         {workers.map(wo => (
           <WorkerItem key={wo.id} worker={wo} />
         ))}

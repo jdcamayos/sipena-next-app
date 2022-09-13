@@ -171,6 +171,7 @@ function UploadButton() {
 
 export default function BigAvatar(props: Props) {
 	const { email, role, image } = props
+	console.log(image)
 	return (
 		<Grid item xs={12} md={6} sx={{ display: 'grid', placeContent: 'center' }}>
 			<Badge

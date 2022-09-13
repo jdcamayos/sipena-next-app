@@ -4,14 +4,15 @@ import * as React from 'react'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 // Components
+import BigAvatar from '../components/forms/BigAvatar'
 import CustomerForm from '../components/forms/CustomerForm'
 import CustomerInfo from '../components/forms/CustomerInfo'
 import DashboardLayout from '../components/dashboard/DashboardLayout'
+import LoadingBackground from '../components/misc/LoadingBackground'
 import UserInfo from '../components/misc/UserInfo'
 // Hooks
 import useAuth from '../hooks/useAuth'
 import { useRouter } from 'next/router'
-import BigAvatar from '../components/forms/BigAvatar'
 
 export default function Profile(props: NextPage) {
 	const { loading, state } = useAuth()
@@ -37,7 +38,7 @@ export default function Profile(props: NextPage) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loading, state.auth.isAuth])
 
-	if (loading) return <div>Loading...</div>
+	if (loading) return <LoadingBackground />
 
 	return (
 		<DashboardLayout>

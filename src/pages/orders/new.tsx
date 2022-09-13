@@ -15,9 +15,10 @@ import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import SendIcon from '@mui/icons-material/Send'
 // Components
-import DashboardLayout from '../../components/dashboard/DashboardLayout'
 import ContainerForm from '../../components/forms/ContainerForm'
 import ContainersTable from '../../components/tables/ContainersTable'
+import DashboardLayout from '../../components/dashboard/DashboardLayout'
+import LoadingBackground from '../../components/misc/LoadingBackground'
 // Hooks
 import useNewOrder from '../../hooks/useNewOrder'
 import useAuth from '../../hooks/useAuth'
@@ -45,7 +46,7 @@ export default function NewOrder(props: NextPage) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loading])
 
-	if (loading) return <div>Loading...</div>
+	if (loading) return <LoadingBackground />
 
 	return (
 		<DashboardLayout>

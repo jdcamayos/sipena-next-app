@@ -23,12 +23,7 @@ import ThemeButton from './ThemeButton'
 // Hooks
 import useAuth from '../../hooks/useAuth'
 import { colorRole } from '../../utils/color-role'
-
-// const colorRole = {
-// 	admin: 'red',
-// 	customer: 'green',
-// 	worker: 'orange',
-// }
+import { config } from '../../config'
 
 export default function Header() {
 	const { state, logout } = useAuth()
@@ -127,7 +122,6 @@ export default function Header() {
 											<Badge
 												badgeContent={
 													<Avatar
-														src={state.user?.image}
 														sx={{
 															width: 20,
 															height: 20,
@@ -135,7 +129,7 @@ export default function Header() {
 															textAlign: 'center',
 															color: 'white',
 															background: (state.user?.role && colorRole[state.user?.role].main) || 'white',
-															border: '1px solid white'
+															border: '1px solid white',
 														}}
 													>
 														{state.user?.role.split('')[0].toLocaleUpperCase()}
@@ -145,10 +139,11 @@ export default function Header() {
 												anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
 											>
 												<Avatar
+													src={`${config.filesUrl}/${state.user?.image}`}
 													sx={{
 														backgroundColor: state.user?.role && colorRole[state.user?.role].background,
 														color: 'black',
-														border: `1px solid ${state.user?.role && colorRole[state.user?.role].main || 'grey'}`,
+														border: `1px solid ${(state.user?.role && colorRole[state.user?.role].main) || 'grey'}`,
 													}}
 												>
 													{state.user?.email[0].toLocaleUpperCase()}

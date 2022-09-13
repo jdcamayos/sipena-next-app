@@ -21,7 +21,7 @@ import TableBodyLoading from './TableBodyLoading'
 import useUsers from '../../hooks/useUsers'
 
 export default function UsersTable() {
-	const { users, meta, loading, setPage, usersPage } = useUsers()
+	const { users, meta, loading, setPage, usersPage, refreshUsers } = useUsers()
 
 	const handleChangePage = (event: unknown, newPage: number) => {
 		setPage(newPage + 1)
@@ -29,15 +29,15 @@ export default function UsersTable() {
 
 	return (
 		<Paper>
-			<Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-				<Typography component='h2' variant='h5' color="primary">
+			<Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+				<Typography component='h2' variant='h5' color='primary'>
 					Users
 				</Typography>
-				<IconButton>
+				<IconButton onClick={() => refreshUsers()}>
 					<RefreshIcon />
 				</IconButton>
 			</Toolbar>
-			<TableContainer component={Paper} >
+			<TableContainer component={Paper}>
 				<Table size='small' aria-label='users table'>
 					<TableHead sx={{ backgroundColor: 'primary.main', color: 'black' }}>
 						<TableRow>

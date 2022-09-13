@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import * as React from 'react'
 // Components
 import AuthLayout from '../../components/auth/AuthLayout'
+import LoadingBackground from '../../components/misc/LoadingBackground'
 import RecoveryPasswordForm from '../../components/auth/RecoveryPasswordForm'
 // Hooks
 import useAuth from '../../hooks/useAuth'
@@ -20,7 +21,7 @@ export default function RecoveryPassword(props: NextPage) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loading])
 
-	if (loading) return <div>Loading...</div>
+	if (loading) return <LoadingBackground />
 
 	return (
 		<AuthLayout>

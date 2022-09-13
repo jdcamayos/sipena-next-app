@@ -44,8 +44,8 @@ export default function useUsers() {
 			if (!state.user) {
 				return
 			}
-			const response = await usersService.addImage(state.user.id, addUserImageDto)
-
+			const user = await usersService.addImage(state.user.id, addUserImageDto)
+			dispatch(action.getMeRequest(user))
 			// dispatch(action.updateUserRequest(user))
 			setLoading(false)
 		} catch (error) {
@@ -70,5 +70,9 @@ export default function useUsers() {
 		dispatch(action.setUsersPage(newPage))
 	}
 
-	return { loading, users, meta, setPage, addUserImage, updateUser, usersPage }
+	const refreshUsers = () => {
+		fetchUsers(usersPage)
+	}
+
+	return { loading, users, meta, setPage, addUserImage, updateUser, usersPage, refreshUsers }
 }

@@ -24,14 +24,11 @@ const AttachmentFile = (props: AttachmentFileProps) => {
 			<Paper
 				sx={{
 					padding: 0,
-					background: theme =>
-						theme.palette.mode === 'light'
-						 	? theme.palette.grey[300]
-							: theme.palette.grey[600],
-					height: "100%",
+					background: theme => (theme.palette.mode === 'light' ? theme.palette.grey[300] : theme.palette.grey[600]),
+					height: '100%',
 					position: 'relative',
-					display: "grid",
-					placeContent: "center"
+					display: 'grid',
+					placeContent: 'center',
 				}}
 			>
 				<IconButton
@@ -40,19 +37,16 @@ const AttachmentFile = (props: AttachmentFileProps) => {
 						top: 0,
 						right: 0,
 						'&:hover': {
-							color: theme =>
-								theme.palette.mode === 'light'
-								 	? theme.palette.error.light
-									: theme.palette.error.dark,
+							color: theme => (theme.palette.mode === 'light' ? theme.palette.error.light : theme.palette.error.dark),
 						},
 					}}
 				>
 					<DeleteIcon />
 				</IconButton>
 				<IconButton
-					component="a"
+					component='a'
 					href={`${config.filesUrl}/${at.path}`}
-					target="_blank"
+					target='_blank'
 					download={at.originalname}
 					sx={{
 						position: 'absolute',
@@ -63,7 +57,7 @@ const AttachmentFile = (props: AttachmentFileProps) => {
 						},
 					}}
 				>
-					<FileDownloadIcon/>
+					<FileDownloadIcon />
 				</IconButton>
 				<Box
 					sx={{
@@ -76,19 +70,16 @@ const AttachmentFile = (props: AttachmentFileProps) => {
 					<InsertDriveFileIcon
 						sx={{
 							fontSize: '5rem',
-							color: theme =>
-								theme.palette.mode === 'light'
-									? theme.palette.grey[600]
-									: theme.palette.grey[100],
-					 	}}
+							color: theme => (theme.palette.mode === 'light' ? theme.palette.grey[600] : theme.palette.grey[100]),
+						}}
 					/>
 					<Typography
 						variant='caption'
 						sx={{
 							maxWidth: '100%',
-							wordBreak: 'break-word'
+							wordBreak: 'break-word',
 						}}
-						align="center"
+						align='center'
 					>
 						{at.originalname}
 					</Typography>
@@ -107,6 +98,7 @@ export default function AttachmentBox(props: Props) {
 	return (
 		<Paper sx={{ padding: 2, marginTop: 2 }}>
 			<Grid container spacing={1}>
+				{!attachments.length && <Typography align='center' sx={{ width: "100%" }}>No attachments yet</Typography>}
 				{attachments.map(at => (
 					<AttachmentFile key={at.id} attachment={at} />
 				))}

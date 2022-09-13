@@ -2,7 +2,9 @@ import * as React from 'react'
 // MUI Styles
 import Backdrop from '@mui/material/Backdrop'
 import CircularProgress from '@mui/material/CircularProgress'
+import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 // Hooks
 import useOrder from '../../hooks/useOrder'
@@ -37,10 +39,42 @@ export default function OrderInfo(props: Props) {
 
 	return (
 		<Grid item xs={12} container spacing={2}>
-			<Grid item xs={12}>
+			<Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
 				<Typography>
-					<strong>Date:</strong> {dateFormat(order.date)}
+					<strong>Date: </strong> {dateFormat(order.date)}
 				</Typography>
+				<Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+					<Typography>
+						<strong>Status: </strong>{' '}
+					</Typography>
+					{order.status ? (
+						<Paper
+							sx={{
+								fontSize: 14,
+								paddingX: 1.25,
+								paddingY: 0.25,
+								backgroundColor: theme => theme.palette.error.main,
+								textAlign: 'center',
+								color: 'white',
+							}}
+						>
+							completed
+						</Paper>
+					) : (
+						<Paper
+							sx={{
+								fontSize: 14,
+								paddingX: 1.25,
+								paddingY: 0.25,
+								backgroundColor: theme => theme.palette.success.main,
+								textAlign: 'center',
+								color: 'black',
+							}}
+						>
+							active
+						</Paper>
+					)}
+				</Box>
 			</Grid>
 			<Grid item xs={12}>
 				<ContainersTable isForm={false} containers={order.containers} />
