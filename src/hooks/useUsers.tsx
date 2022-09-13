@@ -38,10 +38,13 @@ export default function useUsers() {
 		}
 	}
 
-	const addUserImage = async (userId: string, addUserImageDto: AddUserImageDto) => {
+	const addUserImage = async (addUserImageDto: AddUserImageDto) => {
 		try {
 			setLoading(true)
-			const response = await usersService.addImage(userId, addUserImageDto)
+			if (!state.user) {
+				return
+			}
+			const response = await usersService.addImage(state.user.id, addUserImageDto)
 
 			// dispatch(action.updateUserRequest(user))
 			setLoading(false)

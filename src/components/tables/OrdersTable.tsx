@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import * as React from 'react'
 // MUI Styles
+import { SvgIconProps } from '@mui/material/SvgIcon'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
@@ -11,13 +12,14 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
+import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-import { SvgIconProps } from '@mui/material/SvgIcon'
 // Icons
 import AttachFileIcon from '@mui/icons-material/AttachFile'
 import CommentIcon from '@mui/icons-material/Comment'
 import DoorSlidingIcon from '@mui/icons-material/DoorSliding'
 import GroupIcon from '@mui/icons-material/Group'
+import RefreshIcon from '@mui/icons-material/Refresh'
 // Components
 import TableBodyLoading from './TableBodyLoading'
 // Hooks
@@ -70,8 +72,8 @@ function IconTableCell(props: IconTableCellProps) {
 	return (
 		<TableCell align='center'>
 			<Box sx={{ display: 'flex', justifyContent: 'center' }}>
-				{React.cloneElement(icon, { sx: { display: { sm: 'block', md: 'none', lg: 'block' } } })}
-				<Typography sx={{ display: { sm: 'none', md: 'block' }, paddingLeft: { lg: 1 } }}>{label}</Typography>
+				{React.cloneElement(icon, { sx: { display: { xs: 'block', md: 'none', lg: 'block' } } })}
+				<Typography sx={{ display: { xs: 'none', md: 'block' }, paddingLeft: { lg: 1 } }}>{label}</Typography>
 			</Box>
 		</TableCell>
 	)
@@ -80,7 +82,7 @@ function IconTableCell(props: IconTableCellProps) {
 interface Props {}
 
 export default function OrdersTable(props: Props) {
-	const { orders, meta, loading, setPage, ordersPage, state } = useOrders()
+	const { orders, meta, loading, setPage, ordersPage, state, refreshOrders } = useOrders()
 
 	const handleChangePage = (event: unknown, newPage: number) => {
 		setPage(newPage + 1)
@@ -88,6 +90,14 @@ export default function OrdersTable(props: Props) {
 
 	return (
 		<Paper>
+			<Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+				<Typography component='h2' variant='h5' color="primary">
+					Orders
+				</Typography>
+				<IconButton onClick={() => refreshOrders()}>
+					<RefreshIcon />
+				</IconButton>
+			</Toolbar>
 			<TableContainer component={Paper}>
 				<Table aria-label='collapsible table' size='small'>
 					<TableHead sx={{ backgroundColor: 'primary.main', color: 'black' }}>
@@ -97,16 +107,16 @@ export default function OrdersTable(props: Props) {
 							<TableCell align='center'>Created Date</TableCell>
 							<TableCell align='center'>Date</TableCell>
 							<IconTableCell label='Containers' icon={<DoorSlidingIcon />} />
-							<IconTableCell label='Workers' icon={<GroupIcon />} />
 							<IconTableCell label='Comments' icon={<CommentIcon />} />
+							<IconTableCell label='Workers' icon={<GroupIcon />} />
 							<IconTableCell label='Attachments' icon={<AttachFileIcon />} />
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						<TableBodyLoading loading={loading} rows={10} cells={6} />
+						<TableBodyLoading loading={loading} rows={10} cells={8} />
 						{!orders.length && !loading && (
 							<TableRow>
-								<TableCell colSpan={6} align='center' rowSpan={10}>
+								<TableCell colSpan={8} align='center' rowSpan={10}>
 									Not containers yet
 								</TableCell>
 							</TableRow>

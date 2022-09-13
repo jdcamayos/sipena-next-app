@@ -3,6 +3,7 @@ import * as React from 'react'
 // MUI Styles
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
+import Badge from '@mui/material/Badge'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
@@ -21,12 +22,13 @@ import SideBar from './Sidebar'
 import ThemeButton from './ThemeButton'
 // Hooks
 import useAuth from '../../hooks/useAuth'
+import { colorRole } from '../../utils/color-role'
 
-const colorRole = {
-	admin: 'red',
-	customer: 'green',
-	worker: 'orange',
-}
+// const colorRole = {
+// 	admin: 'red',
+// 	customer: 'green',
+// 	worker: 'orange',
+// }
 
 export default function Header() {
 	const { state, logout } = useAuth()
@@ -58,9 +60,12 @@ export default function Header() {
 
 	return (
 		<>
-			<AppBar position='absolute' sx={{
-				backgroundColor: 'primary.main'
-			}}>
+			<AppBar
+				position='absolute'
+				sx={{
+					backgroundColor: 'primary.main',
+				}}
+			>
 				<Container maxWidth='xl'>
 					<Toolbar disableGutters>
 						{/* Desktop BrandLink */}
@@ -86,27 +91,23 @@ export default function Header() {
 						{/* Desktop NavLinks */}
 						{state.auth.isAuth && (
 							<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+								<Button onClick={() => handleLinkUserMenu('/')} sx={{ my: 2, color: 'white', display: 'block' }}>
+									Home
+								</Button>
+								{state.user?.role === 'customer' && state.customer && (
 									<Button
-										onClick={() => handleLinkUserMenu('/')}
+										onClick={() => handleLinkUserMenu('/orders/new')}
 										sx={{ my: 2, color: 'white', display: 'block' }}
 									>
-										Home
+										New Order
 									</Button>
-									{state.user?.role === 'customer' && state.customer && (
-										<Button
-											onClick={() => handleLinkUserMenu('/orders/new')}
-											sx={{ my: 2, color: 'white', display: 'block' }}
-
-										>
-											New Order
-										</Button>
-									)}
+								)}
 							</Box>
 						)}
 						{/* Desktop NavLinks */}
 						{state.auth.isAuth && (
 							<Box sx={{ flexGrow: 0, display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
-								<Paper
+								{/* <Paper
 									sx={{
 										backgroundColor: state.user?.role && colorRole[state.user?.role],
 										px: 0.5,
@@ -118,14 +119,41 @@ export default function Header() {
 									elevation={6}
 								>
 									<Typography variant='caption'>{state.user?.role}</Typography>
-								</Paper>
+								</Paper> */}
 								<Tooltip title='User settings'>
 									<>
 										<IconButton onClick={handleOpenUserMenu} component={Paper} elevation={6} sx={{ p: 0 }}>
 											{/* <Avatar alt={auth.user?.email} src="/static/images/avatar/2.jpg" /> */}
-											<Avatar  sx={{ backgroundColor: state.user?.role && colorRole[state.user?.role], color: 'white' }}>
-												{state.user?.email[0].toLocaleUpperCase()}
-											</Avatar>
+											<Badge
+												badgeContent={
+													<Avatar
+														src={state.user?.image}
+														sx={{
+															width: 20,
+															height: 20,
+															fontSize: 12,
+															textAlign: 'center',
+															color: 'white',
+															background: (state.user?.role && colorRole[state.user?.role].main) || 'white',
+															border: '1px solid white'
+														}}
+													>
+														{state.user?.role.split('')[0].toLocaleUpperCase()}
+													</Avatar>
+												}
+												overlap='circular'
+												anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+											>
+												<Avatar
+													sx={{
+														backgroundColor: state.user?.role && colorRole[state.user?.role].background,
+														color: 'black',
+														border: `1px solid ${state.user?.role && colorRole[state.user?.role].main || 'grey'}`,
+													}}
+												>
+													{state.user?.email[0].toLocaleUpperCase()}
+												</Avatar>
+											</Badge>
 										</IconButton>
 									</>
 								</Tooltip>

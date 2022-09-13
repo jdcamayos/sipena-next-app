@@ -24,6 +24,7 @@ export interface RecoveryPasswordDto {
 export interface MeResponse extends Base {
 	email: string
 	role: 'admin' | 'customer' | 'worker'
+	image: string
 }
 
 export interface LoginResponse {

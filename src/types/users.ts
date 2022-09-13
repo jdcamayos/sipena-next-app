@@ -3,6 +3,7 @@ import { Base, Meta } from './base'
 export interface User extends Base {
 	email: string
 	role: 'admin' | 'customer' | 'worker'
+	image: string
 }
 
 export interface AdminUser extends User {

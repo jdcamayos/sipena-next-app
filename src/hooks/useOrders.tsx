@@ -58,5 +58,9 @@ export default function useOrders() {
 		dispatch(action.setOrdersPage(newPage))
 	}
 
-	return { loading, orders, meta, setPage, ordersPage, state }
+	const refreshOrders = () => {
+		fetchOrders(ordersPage)
+	}
+
+	return { loading, orders, meta, setPage, ordersPage, state, refreshOrders }
 }
