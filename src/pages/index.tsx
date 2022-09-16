@@ -35,7 +35,7 @@ export default function Home(props: NextPage) {
 				<>
 					<Grid item xs={12} sx={{ display: 'grid', placeContent: 'center', py: 2 }}>
 						<Typography>
-							Welcome to Sipnea Orders App, you need to create your customer profile, to create orders.
+							Welcome to Sipena Orders App, you need to create your customer profile, to create orders.
 						</Typography>
 					</Grid>
 					<Grid item xs={12} sx={{ display: 'grid', placeContent: 'center', py: 2 }}>

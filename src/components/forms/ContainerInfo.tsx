@@ -14,6 +14,8 @@ import TextField from '@mui/material/TextField'
 import useNewOrder from '../../hooks/useNewOrder'
 // Types
 import { Container, CreateContainerDto, CreateContainerItem } from '../../types'
+import { Input, InputAdornment, OutlinedInput } from '@mui/material'
+import { containerSchema } from '../../schemas/container.schema'
 
 interface Props {
 	initialValues?: CreateContainerItem | Container
@@ -36,7 +38,7 @@ export default function ContainerInfo(props: Props) {
 					forkliftOperator: initialValues.forkliftOperator,
 					stretchWrap: initialValues.stretchWrap,
 					additionalInfo: initialValues.additionalInfo,
-				}
+			  }
 			: {
 					type: '20ft',
 					contain: '',
@@ -46,19 +48,21 @@ export default function ContainerInfo(props: Props) {
 					stretchWrap: false,
 					additionalInfo: '',
 			  },
+		validationSchema: containerSchema,
+		validateOnChange: false,
 		onSubmit: async (values: CreateContainerDto) => {
 			if (isUpdate && initialValues) {
-				if(typeof initialValues.id === 'number') editContainer({ id: initialValues.id, ...values })
+				if (typeof initialValues.id === 'number') editContainer({ id: initialValues.id, ...values })
 			} else {
 				addContainer(values)
 			}
-      handleClose && handleClose()
+			handleClose && handleClose()
 		},
 	})
 
 	return (
 		<Grid container spacing={2} sx={{ py: 2 }} component='form' onSubmit={formik.handleSubmit}>
-			<Grid item xs={12}>
+			<Grid item xs={12} justifyContent='center'>
 				<FormControl>
 					<FormLabel id='container-type-group'>Type</FormLabel>
 					<RadioGroup
@@ -83,6 +87,7 @@ export default function ContainerInfo(props: Props) {
 					onChange={formik.handleChange}
 					fullWidth
 					multiline
+					error={!formik.errors.contain}
 					rows={2}
 					placeholder='Coffe, Toys, Tools...'
 					variant='standard'
@@ -97,8 +102,11 @@ export default function ContainerInfo(props: Props) {
 					value={formik.values.productQuantity}
 					onChange={formik.handleChange}
 					fullWidth
-					label='Quantity'
+					label='Carton Count'
 					type='number'
+					error={!!formik.errors.productQuantity}
+					helperText={formik.errors.productQuantity}
+					required
 					variant='standard'
 					InputLabelProps={{
 						shrink: true,
@@ -106,6 +114,7 @@ export default function ContainerInfo(props: Props) {
 				/>
 			</Grid>
 			<Grid item xs={6}>
+				{/* <FormControl variant='standard' label='Weight'> */}
 				<TextField
 					name='productWeight'
 					value={formik.values.productWeight}
@@ -113,31 +122,30 @@ export default function ContainerInfo(props: Props) {
 					fullWidth
 					label='Weight'
 					type='number'
+					error={!!formik.errors.productWeight}
+					helperText={formik.errors.productWeight}
+					required
 					variant='standard'
 					InputLabelProps={{
 						shrink: true,
 					}}
+					InputProps={{
+						endAdornment: <InputAdornment position='end'>kg</InputAdornment>,
+					}}
 				/>
+				{/* </FormControl> */}
 			</Grid>
 			<Grid item xs={6}>
-				<FormControlLabel control={
-					<Checkbox
-						name="forkliftOperator"
-						checked={formik.values.forkliftOperator}
-						onChange={formik.handleChange}
-					/>
+				<FormControlLabel
+					control={
+						<Checkbox name='forkliftOperator' checked={formik.values.forkliftOperator} onChange={formik.handleChange} />
 					}
 					label='Forklift Operator'
 				/>
 			</Grid>
 			<Grid item xs={6}>
-				<FormControlLabel control={
-					<Checkbox
-						name="stretchWrap"
-						checked={formik.values.stretchWrap}
-						onChange={formik.handleChange}
-					/>
-					}
+				<FormControlLabel
+					control={<Checkbox name='stretchWrap' checked={formik.values.stretchWrap} onChange={formik.handleChange} />}
 					label='Strech Wrap'
 				/>
 			</Grid>

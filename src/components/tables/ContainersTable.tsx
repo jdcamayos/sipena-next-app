@@ -39,8 +39,8 @@ export default function ContainersTable(props: Props) {
 							{isForm && <TableCell align='center'>Action</TableCell>}
 							<TableCell align='center'>Type</TableCell>
 							<TableCell align='center'>Contain</TableCell>
-							<TableCell align='center'>Qty</TableCell>
-							<TableCell align='center'>Weight x Product</TableCell>
+							<TableCell align='center'>Carton Count</TableCell>
+							<TableCell align='center'>Weight [kg]</TableCell>
 							<TableCell align='center'>Forklift Operator</TableCell>
 							<TableCell align='center'>Stretch Wrap</TableCell>
 							<TableCell align='center'>Additional Info</TableCell>

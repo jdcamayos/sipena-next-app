@@ -47,33 +47,18 @@ export default function OrderInfo(props: Props) {
 					<Typography>
 						<strong>Status: </strong>{' '}
 					</Typography>
-					{order.status ? (
-						<Paper
-							sx={{
-								fontSize: 14,
-								paddingX: 1.25,
-								paddingY: 0.25,
-								backgroundColor: theme => theme.palette.error.main,
-								textAlign: 'center',
-								color: 'white',
-							}}
-						>
-							completed
-						</Paper>
-					) : (
-						<Paper
-							sx={{
-								fontSize: 14,
-								paddingX: 1.25,
-								paddingY: 0.25,
-								backgroundColor: theme => theme.palette.success.main,
-								textAlign: 'center',
-								color: 'black',
-							}}
-						>
-							active
-						</Paper>
-					)}
+					<Paper
+						sx={{
+							fontSize: 14,
+							paddingX: 1.25,
+							paddingY: 0.25,
+							backgroundColor: theme => (order.status ? theme.palette.error.main : theme.palette.success.main),
+							textAlign: 'center',
+							color: theme => (theme.palette.mode === 'dark' ? 'black' : 'white'),
+						}}
+					>
+						{order.status ? 'completed' : 'active'}
+					</Paper>
 				</Box>
 			</Grid>
 			<Grid item xs={12}>
@@ -99,7 +84,7 @@ export default function OrderInfo(props: Props) {
 					{state.user?.role === 'admin' && !order.status && <WorkerForm />}
 				</Grid>
 				<Grid item xs={12}>
-					<WorkerBox workers={order.workers} />
+					<WorkerBox workers={order.workers} isCustomer={state.user?.role === 'customer'} />
 				</Grid>
 			</Grid>
 			<Grid item xs={12} container>
@@ -110,7 +95,7 @@ export default function OrderInfo(props: Props) {
 					{!order.status && <CommentForm />}
 				</Grid>
 				<Grid item xs={12}>
-					<CommentBox comments={order.comments} />
+					<CommentBox comments={order.comments} isCustomer={state.user?.role === 'customer'} />
 				</Grid>
 			</Grid>
 		</Grid>

@@ -36,7 +36,7 @@ export default function CompleteOrderForm(props: Props) {
 					right: 1,
 					top: 1,
 					textTransform: 'none',
-					color: 'black',
+					color: theme => theme.palette.mode === 'dark' ? 'black' : 'white',
 					backgroundColor: theme => theme.palette.warning.main,
 					'&:hover': {
 						backgroundColor: theme => theme.palette.error.main,

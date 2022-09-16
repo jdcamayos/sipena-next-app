@@ -11,13 +11,16 @@ import { Comment } from '../../types'
 import { dateRegistered } from '../../utils/dates'
 import { config } from '../../config'
 import { colorRole } from '../../utils/color-role'
+import { getUsername } from '../../utils/username'
 
 interface CommentItemProps {
 	comment: Comment
+	isCustomer: boolean
 }
 
 const CommentItem = (props: CommentItemProps) => {
-	const { comment: co } = props
+	const { comment: co, isCustomer } = props
+	const username = getUsername(co.author.email)
 	return (
 		<Grid item xs={12}>
 			<Paper sx={{ padding: 2 }}>
@@ -33,17 +36,17 @@ const CommentItem = (props: CommentItemProps) => {
 							border: `1px solid ${(co.author.role && colorRole[co.author.role].main) || 'grey'}`,
 						}}
 					>
-						{co.userId.split('')[0].toUpperCase()}
+						{co.author.email.split('')[0].toUpperCase()}
 					</Avatar>
 					<Box sx={{ marginLeft: 2, overflow: 'hidden' }}>
 						<Grid container>
 							<Grid item xs={12}>
 								<Typography sx={{ width: '100%', fontWeight: 'bold', textOverflow: 'ellipsis' }}>
-									{co.author.email}
+									{isCustomer ? username : co.author.email}
 								</Typography>
 							</Grid>
 							<Grid item xs={12}>
-								<Typography sx={{ width: '100%', fontWeight: 'light', textOverflow: 'ellipsis' }}>
+								<Typography sx={{ width: '100%', fontWeight: 'light', textOverflow: 'ellipsis', fontSize: 13, color: theme => theme.palette.grey[600] }}>
 									{dateRegistered(co.createdAt)}
 								</Typography>
 							</Grid>
@@ -58,10 +61,11 @@ const CommentItem = (props: CommentItemProps) => {
 
 interface Props {
 	comments: Comment[]
+	isCustomer: boolean
 }
 
 export default function CommentBox(props: Props) {
-	const { comments } = props
+	const { comments, isCustomer } = props
 	return (
 		<Paper sx={{ padding: 2, marginTop: 2 }}>
 			<Grid container spacing={2}>
@@ -71,7 +75,7 @@ export default function CommentBox(props: Props) {
 					</Typography>
 				)}
 				{comments.map(co => (
-					<CommentItem key={co.id} comment={co} />
+					<CommentItem key={co.id} comment={co} isCustomer={isCustomer} />
 				))}
 			</Grid>
 		</Paper>
