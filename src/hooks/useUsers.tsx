@@ -57,7 +57,6 @@ export default function useUsers() {
 		try {
 			setLoading(true)
 			const user = await usersService.update(userId, updateAdminUserDto)
-			console.log('Response', user)
 			dispatch(action.updateUserRequest(user))
 			setLoading(false)
 		} catch (error) {

@@ -22,7 +22,6 @@ export default function useWorkers() {
 		try {
 			setLoading(true)
 			const response = await usersService.findAllWorkers()
-			console.log(response.data)
 			dispatch(action.getWorkersRequest(response))
 			setLoading(false)
 		} catch (error) {

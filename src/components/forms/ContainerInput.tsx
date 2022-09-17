@@ -32,7 +32,6 @@ export default function ContainerInput() {
 			additionalInfo: '',
 		},
 		onSubmit: values => {
-			console.log(values)
 		},
 	})
 	return (

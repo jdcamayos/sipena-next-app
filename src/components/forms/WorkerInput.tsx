@@ -28,8 +28,6 @@ export default function WorkerInput(props: Props) {
 	React.useEffect(() => {
 		if (workers.length > 0) {
 			const options = workers.map(worker => worker.email)
-			console.log('options', options)
-			console.log('worker', options[0])
 			setOptions(options)
 			setWorker(options[0])
       setWorkerSelected(workers[0])
@@ -45,7 +43,6 @@ export default function WorkerInput(props: Props) {
 	const handleSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault()
 		if (workerSelected) {
-      console.log(workerSelected)
 			addWorker({ userId: workerSelected.id})
 		}
 		handleClose()

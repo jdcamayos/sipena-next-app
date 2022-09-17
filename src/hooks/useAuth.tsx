@@ -18,12 +18,9 @@ export default function useAuth() {
 	const authService = new AuthService()
 	const customersService = new CustomersService()
 
-	console.log('Loaded useAuth Hook')
-
 	// Initial fetch
 	React.useEffect(() => {
 		const refreshSession = async () => {
-			console.log('Verifying sessión')
 			if (!state.auth.isAuth) {
 				const token = window.localStorage.getItem('access_token')
 				if (!!token) {
@@ -43,7 +40,6 @@ export default function useAuth() {
 			setLoading(true)
 			dispatch(action.loginRequest(token))
 			const user = await authService.me()
-			console.log(user)
 			dispatch(action.getMeRequest(user))
 			if (user.role === 'customer') {
 				const customer = await customersService.findMe()
@@ -51,10 +47,8 @@ export default function useAuth() {
 			}
 			setLoading(false)
 		} catch (error) {
-			// ! ToDo: When de the token is expired, remove token
 			logout()
 			setLoading(false)
-			console.log('getMe method failed')
 			console.log(error)
 		}
 	}

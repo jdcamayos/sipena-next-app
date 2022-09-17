@@ -71,7 +71,6 @@ export default function useOrder() {
 		try {
 			setLoading(true)
 			const worker = await ordersService.addWorkerToOrder(order.id, addWorkerDto)
-			console.log(worker)
 			dispatch(action.addWorkerRequest(worker))
 			setLoading(false)
 		} catch (error) {

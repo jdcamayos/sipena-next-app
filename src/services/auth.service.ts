@@ -11,9 +11,7 @@ import { service } from './base.service'
 
 export class AuthService {
 	async me() {
-		// console.log('Executing auth.service.ts "me" method')
 		const { data } = await service.get<MeResponse>('/auth/me')
-		// console.log('Executing auth.service.ts "me" method response:', data)
 		return data
 	}
 
