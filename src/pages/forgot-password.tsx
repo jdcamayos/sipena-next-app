@@ -9,7 +9,7 @@ import LoadingBackground from '../components/misc/LoadingBackground'
 import useAuth from '../hooks/useAuth'
 
 export default function ForgotPassword(props: NextPage) {
-	const { loading, state } = useAuth()
+	const { loading, forgotPassword, state } = useAuth()
 	const { replace } = useRouter()
 
 	React.useEffect(() => {
@@ -23,7 +23,7 @@ export default function ForgotPassword(props: NextPage) {
 
 	return (
 		<AuthLayout>
-			<ForgotPasswordForm />
+			<ForgotPasswordForm loading={loading} forgotPassword={forgotPassword} />
 		</AuthLayout>
 	)
 }

@@ -9,7 +9,7 @@ import LoginForm from '../components/auth/LoginForm'
 import useAuth from '../hooks/useAuth'
 
 export default function Login(props: NextPage) {
-	const { loading, state } = useAuth()
+	const { loading, login, state, error } = useAuth()
 	const { replace } = useRouter()
 
 	React.useEffect(() => {
@@ -23,7 +23,7 @@ export default function Login(props: NextPage) {
 
 	return (
 		<AuthLayout>
-			<LoginForm />
+			<LoginForm loading={loading} login={login} state={state} error={error} />
 		</AuthLayout>
 	)
 }

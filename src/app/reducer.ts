@@ -23,6 +23,8 @@ export const reducer = (state: State, action: ActionType): State => {
 			return loginRequestReducer(state, action.payload)
 		case actions.logoutRequest:
 			return logoutRequestReducer(state, action.payload)
+		case actions.setLoading:
+			return setLoadingReducer(state, action.payload)
 		case actions.getMeRequest:
 			return getMeRequestReducer(state, action.payload)
 		case actions.getCustomerRequest:
@@ -71,6 +73,7 @@ export const reducer = (state: State, action: ActionType): State => {
 const loginRequestReducer = (state: State, payload: Auth['token']): State => ({
 	...state,
 	auth: {
+		...state.auth,
 		isAuth: true,
 		token: payload,
 	},
@@ -78,6 +81,14 @@ const loginRequestReducer = (state: State, payload: Auth['token']): State => ({
 
 const logoutRequestReducer = (state: State, payload: unknown): State => ({
 	...initialState,
+})
+
+const setLoadingReducer = (state: State, payload: Auth['loading']): State => ({
+	...state,
+	auth: {
+		...state.auth,
+		loading: payload,
+	}
 })
 
 const getMeRequestReducer = (state: State, payload: User): State => ({

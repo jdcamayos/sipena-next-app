@@ -9,7 +9,7 @@ import RecoveryPasswordForm from '../../components/auth/RecoveryPasswordForm'
 import useAuth from '../../hooks/useAuth'
 
 export default function RecoveryPassword(props: NextPage) {
-	const { loading, state } = useAuth()
+	const { loading, state, recoveryPassword } = useAuth()
 	const { replace, query } = useRouter()
 
 	const recoveryToken = Array.isArray(query.recoveryToken) ? query.recoveryToken[0] : query.recoveryToken
@@ -25,7 +25,9 @@ export default function RecoveryPassword(props: NextPage) {
 
 	return (
 		<AuthLayout>
-			{!!recoveryToken && <RecoveryPasswordForm recoveryToken={recoveryToken} />}
+			{!!recoveryToken && (
+				<RecoveryPasswordForm loading={loading} recoveryPassword={recoveryPassword} recoveryToken={recoveryToken} />
+			)}
 		</AuthLayout>
 	)
 }

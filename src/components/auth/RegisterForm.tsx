@@ -14,12 +14,18 @@ import PasswordInput from '../misc/PasswordInput'
 import useAuth from '../../hooks/useAuth'
 import { useRouter } from 'next/router'
 import { registerSchema } from '../../schemas'
+import { RegisterDto, State } from '../../types'
 
-interface Props {}
+interface Props {
+	loading: boolean
+	register: (registerDto: RegisterDto) => Promise<void>
+	state: State
+	error: string[]
+}
 
 export default function RegisterForm(props: Props) {
-	const { loading, register, state, error } = useAuth()
-	const router = useRouter()
+	const { loading, register, state, error } = props
+	// const router = useRouter()
 	const formik = useFormik({
 		initialValues: {
 			email: '',
@@ -31,12 +37,12 @@ export default function RegisterForm(props: Props) {
 		validationSchema: registerSchema,
 	})
 
-	React.useEffect(() => {
-		if (state.auth.isAuth) {
-			router.replace('/')
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [state.auth.isAuth])
+	// React.useEffect(() => {
+	// 	if (state.auth.isAuth) {
+	// 		router.replace('/')
+	// 	}
+	// 	// eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [state.auth.isAuth])
 
 	return (
 		<Box component='form' noValidate onSubmit={formik.handleSubmit} sx={{ mt: 2 }}>
@@ -68,7 +74,7 @@ export default function RegisterForm(props: Props) {
 					/>
 				</Grid>
 				<Grid item xs={12}>
-				{!!error.length && <Typography align="center">{error[0]}</Typography>}
+					{!!error.length && <Typography align='center'>{error[0]}</Typography>}
 				</Grid>
 			</Grid>
 			<AuthButton content='Register' loading={loading} />

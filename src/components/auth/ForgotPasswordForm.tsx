@@ -14,10 +14,13 @@ import useAuth from '../../hooks/useAuth'
 import { useRouter } from 'next/router'
 import { forgotPasswordSchema } from '../../schemas/forgot-password.schema'
 
-interface Props {}
+interface Props {
+	loading: boolean
+	forgotPassword: (email: string) => Promise<void>
+}
 
 export default function ForgotPasswordForm(props: Props) {
-	const { loading, forgotPassword } = useAuth()
+	const { loading, forgotPassword } = props
 	const router = useRouter()
 	const formik = useFormik({
 		initialValues: {

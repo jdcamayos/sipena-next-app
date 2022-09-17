@@ -4,6 +4,7 @@ export const initialState: State = {
 	auth: {
 		isAuth: false,
 		token: '',
+		loading: false,
 	},
 	user: null,
 	customer: null,

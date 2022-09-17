@@ -6,16 +6,24 @@ import { AuthService, CustomersService } from '../services'
 import { LoginDto, RecoveryPasswordDto, RegisterDto } from '../types'
 
 export default function useAuth() {
-	const [loading, setLoading] = React.useState(false)
+	// const [loading, setLoading] = React.useState(false)
 	const [error, setError] = React.useState<string[]>([])
 	const { state, dispatch } = React.useContext(AppContext)
+	const { auth: {loading} } = state
+
+	const setLoading = (status: boolean) => {
+		dispatch(action.setLoading(status))
+	}
 
 	const authService = new AuthService()
 	const customersService = new CustomersService()
 
+	console.log('Loaded useAuth Hook')
+
 	// Initial fetch
 	React.useEffect(() => {
 		const refreshSession = async () => {
+			console.log('Verifying sessión')
 			if (!state.auth.isAuth) {
 				const token = window.localStorage.getItem('access_token')
 				if (!!token) {
@@ -25,7 +33,7 @@ export default function useAuth() {
 		}
 		refreshSession().catch(error => {
 			console.log(error)
-			window.localStorage.removeItem('access_token')
+			logout()
 		})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
@@ -44,8 +52,9 @@ export default function useAuth() {
 			setLoading(false)
 		} catch (error) {
 			// ! ToDo: When de the token is expired, remove token
-			window.localStorage.removeItem('access_token')
+			logout()
 			setLoading(false)
+			console.log('getMe method failed')
 			console.log(error)
 		}
 	}

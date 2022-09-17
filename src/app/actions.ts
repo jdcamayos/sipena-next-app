@@ -24,6 +24,7 @@ export const actions = {
 	// Auth
 	loginRequest: 'LOGIN_REQUEST',
 	logoutRequest: 'LOGOUT_REQUEST',
+	setLoading: 'SET_LOADING',
 	// User & Customer
 	getMeRequest: 'GET_ME_REQUEST',
 	getCustomerRequest: 'GET_CUSTOMER_REQUEST',
@@ -59,6 +60,10 @@ export const loginRequest = (payload: Auth['token']) => ({
 })
 export const logoutRequest = (payload: unknown) => ({
 	type: actions.logoutRequest,
+	payload,
+})
+export const setLoading = (payload: Auth['loading']) => ({
+	type: actions.setLoading,
 	payload,
 })
 // User & Customer

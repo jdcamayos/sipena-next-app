@@ -3,6 +3,7 @@ import { Base } from './base'
 export interface Auth {
 	isAuth: boolean
 	token: string
+	loading: boolean
 }
 
 // Dto

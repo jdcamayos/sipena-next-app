@@ -13,22 +13,25 @@ import PasswordInput from '../misc/PasswordInput'
 import useAuth from '../../hooks/useAuth'
 import { useRouter } from 'next/router'
 import { recoveryPasswordSchema } from '../../schemas/recovery-password.schema'
+import { RecoveryPasswordDto } from '../../types'
 
 interface Props {
 	recoveryToken: string
+	recoveryPassword: (recoveryPasswordDto: RecoveryPasswordDto, token: string) => Promise<void>
+	loading: boolean
 }
 
 export default function RecoveryPasswordForm(props: Props) {
-	const { recoveryToken } = props
-	const { loading, recoveryPassword } = useAuth()
-	const router = useRouter()
+	const { loading, recoveryPassword, recoveryToken } = props
+	// const router = useRouter()
 	const formik = useFormik({
 		initialValues: {
 			password: '',
 		},
 		onSubmit: async values => {
-			await recoveryPassword(values, recoveryToken)
-			router.replace('/')
+			// await recoveryPassword(values, recoveryToken)
+			recoveryPassword(values, recoveryToken)
+			// router.replace('/')
 		},
 		validationSchema: recoveryPasswordSchema,
 	})

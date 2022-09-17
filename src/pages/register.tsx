@@ -9,7 +9,7 @@ import RegisterForm from '../components/auth/RegisterForm'
 import useAuth from '../hooks/useAuth'
 
 export default function Register(props: NextPage) {
-	const { loading, state } = useAuth()
+	const { loading, register, state, error } = useAuth()
 	const { replace } = useRouter()
 
 	React.useEffect(() => {
@@ -23,7 +23,7 @@ export default function Register(props: NextPage) {
 
 	return (
 		<AuthLayout>
-			<RegisterForm />
+			<RegisterForm loading={loading} register={register} state={state} error={error} />
 		</AuthLayout>
 	)
 }
