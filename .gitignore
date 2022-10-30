@@ -46,4 +46,4 @@ upload-server.sh
 uninstall.sh
 
 # Zip
-sipena.zip
+*.zip

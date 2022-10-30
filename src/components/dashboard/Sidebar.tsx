@@ -12,14 +12,16 @@ import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import ListAltIcon from '@mui/icons-material/ListAlt'
 import { useRouter } from 'next/router'
+import { State } from '../../types'
 
 interface Props {
+	state: State
 	openSideBar: boolean
 	setOpenSideBar: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function Sidebar(props: Props) {
-	const { openSideBar, setOpenSideBar } = props
+	const { state, openSideBar, setOpenSideBar } = props
 	const router = useRouter()
 
 	const handleLink = (to: string) => {
@@ -34,14 +36,16 @@ export default function Sidebar(props: Props) {
 			onKeyDown={() => setOpenSideBar(false)}
 		>
 			<List>
-				<ListItem disablePadding>
-					<ListItemButton onClick={() => handleLink('/orders/new')}>
-						<ListItemIcon>
-							<InboxIcon />
-						</ListItemIcon>
-						<ListItemText primary='New Order' />
-					</ListItemButton>
-				</ListItem>
+				{state.user?.role === 'customer' && state.customer && (
+					<ListItem disablePadding>
+						<ListItemButton onClick={() => handleLink('/orders/new')}>
+							<ListItemIcon>
+								<InboxIcon />
+							</ListItemIcon>
+							<ListItemText primary='New Order' />
+						</ListItemButton>
+					</ListItem>
+				)}
 				<ListItem disablePadding>
 					<ListItemButton onClick={() => handleLink('/')}>
 						<ListItemIcon>

@@ -16,6 +16,9 @@ export default function Admin(props: NextPage) {
 		if (!loading && !window.localStorage.getItem('access_token')) {
 			replace('/login')
 		}
+		if (state.user?.role !== 'admin') {
+			replace('/')
+		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [loading])
 

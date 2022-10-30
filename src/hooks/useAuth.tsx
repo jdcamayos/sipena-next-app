@@ -85,7 +85,7 @@ export default function useAuth() {
 		}
 	}
 
-	const forgotPassword = async (email: string) => {
+	const forgotPassword = async (email: string): Promise<void> => {
 		try {
 			setLoading(true)
 			const res = await authService.forgotPassword(email)

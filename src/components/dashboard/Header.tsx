@@ -198,7 +198,7 @@ export default function Header() {
 					</Toolbar>
 				</Container>
 			</AppBar>
-			<SideBar openSideBar={openSideBar} setOpenSideBar={setOpenSideBar} />
+			<SideBar openSideBar={openSideBar} setOpenSideBar={setOpenSideBar} state={state}/>
 		</>
 	)
 }
